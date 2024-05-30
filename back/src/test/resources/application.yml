@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  config:
+    import: optional:secrets.properties
+application:
+  security:
+    jwt:
+      secret-key: ${jwt-secret-pass}
+      expiration: 8640000

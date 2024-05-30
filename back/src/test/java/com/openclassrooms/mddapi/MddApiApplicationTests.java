@@ -9,5 +9,4 @@ class MddApiApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
