@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.services;
 
+import com.openclassrooms.mddapi.exceptions.UserAlreadyExistException;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.models.requests.LoginUserRequest;
 import com.openclassrooms.mddapi.models.requests.RegisterUserRequest;
@@ -10,16 +11,18 @@ import com.openclassrooms.mddapi.security.services.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
+@Service
 public class AuthenticationService {
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+    UserRepository userRepository;
+    RoleRepository roleRepository;
+    PasswordEncoder passwordEncoder;
+    JwtService jwtService;
+    AuthenticationManager authenticationManager;
 
     public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
@@ -29,9 +32,13 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthenticationResponse registerUser(RegisterUserRequest registerUserRequest) {
+    public void registerUser(RegisterUserRequest registerUserRequest) {
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new IllegalStateException("Role user was not found or not initialized"));
+        var existingUser = userRepository.findByEmail(registerUserRequest.getEmail());
+        if (existingUser.isPresent()) {
+            throw new UserAlreadyExistException("User with email " + registerUserRequest.getEmail() + " already exists");
+        }
         var user = User.builder()
                 .name(registerUserRequest.getName())
                 .email(registerUserRequest.getEmail())
@@ -40,7 +47,6 @@ public class AuthenticationService {
                 .build();
 
         userRepository.save(user);
-        return getToken(user);
     }
 
     public AuthenticationResponse loginUser(LoginUserRequest loginUserRequest) {
@@ -53,7 +59,7 @@ public class AuthenticationService {
         return getToken((User)authentication.getPrincipal());
     }
 
-    public AuthenticationResponse getToken(User user) {
+    private AuthenticationResponse getToken(User user) {
         var claims = new HashMap<String, Object>();
 
         claims.put("fullName", user.getName());
