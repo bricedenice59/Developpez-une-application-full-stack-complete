@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.models.requests;
+package com.openclassrooms.mddapi.payloads.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

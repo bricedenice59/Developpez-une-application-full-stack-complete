@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.exceptions.UserAlreadyExistException;
 import com.openclassrooms.mddapi.exceptions.UserNotFoundException;
-import com.openclassrooms.mddapi.models.responses.ApiErrorResponse;
+import com.openclassrooms.mddapi.payloads.responses.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,13 +28,19 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorApiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({UserNotFoundException.class, UserAlreadyExistException.class})
+    @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<ApiErrorResponse> handleUserNotFoundException(RuntimeException ex) {
+        var errorApiResponse = new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<>(errorApiResponse, HttpStatus.NOT_FOUND) ;
+    }
+
+    @ExceptionHandler({UserAlreadyExistException.class, MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<ApiErrorResponse> handleBadRequestException(RuntimeException ex) {
         var errorApiResponse = new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorApiResponse, HttpStatus.BAD_REQUEST) ;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ApiErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
         Set<String> errors = ex.getBindingResult().getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage).collect(Collectors.toSet());

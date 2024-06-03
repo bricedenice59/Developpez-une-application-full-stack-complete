@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.models.responses;
+package com.openclassrooms.mddapi.payloads.responses;
 
 import lombok.Data;
 

@@ -1,10 +1,10 @@
 package com.openclassrooms.mddapi.controllers;
 
 
-import com.openclassrooms.mddapi.models.requests.LoginUserRequest;
-import com.openclassrooms.mddapi.models.requests.RegisterUserRequest;
-import com.openclassrooms.mddapi.models.responses.AuthenticationResponse;
-import com.openclassrooms.mddapi.models.responses.SimpleOutputMessageResponse;
+import com.openclassrooms.mddapi.payloads.requests.LoginUserRequest;
+import com.openclassrooms.mddapi.payloads.requests.RegisterUserRequest;
+import com.openclassrooms.mddapi.payloads.responses.AuthenticationResponse;
+import com.openclassrooms.mddapi.payloads.responses.SimpleOutputMessageResponse;
 import com.openclassrooms.mddapi.services.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

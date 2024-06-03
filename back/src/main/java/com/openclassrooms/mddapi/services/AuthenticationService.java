@@ -2,9 +2,9 @@ package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.exceptions.UserAlreadyExistException;
 import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.models.requests.LoginUserRequest;
-import com.openclassrooms.mddapi.models.requests.RegisterUserRequest;
-import com.openclassrooms.mddapi.models.responses.AuthenticationResponse;
+import com.openclassrooms.mddapi.payloads.requests.LoginUserRequest;
+import com.openclassrooms.mddapi.payloads.requests.RegisterUserRequest;
+import com.openclassrooms.mddapi.payloads.responses.AuthenticationResponse;
 import com.openclassrooms.mddapi.repositories.RoleRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.security.services.JwtService;

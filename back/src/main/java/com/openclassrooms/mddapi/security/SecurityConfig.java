@@ -23,7 +23,7 @@ public class SecurityConfig {
 
     private final JwtFilterService jwtFilterService;
     private final AuthenticationProvider authenticationProvider;
-
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
+                .httpBasic(basic -> basic.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtFilterService, UsernamePasswordAuthenticationFilter.class);

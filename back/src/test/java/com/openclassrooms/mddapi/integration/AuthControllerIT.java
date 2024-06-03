@@ -2,8 +2,8 @@ package com.openclassrooms.mddapi.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.openclassrooms.mddapi.models.requests.LoginUserRequest;
-import com.openclassrooms.mddapi.models.requests.RegisterUserRequest;
+import com.openclassrooms.mddapi.payloads.requests.LoginUserRequest;
+import com.openclassrooms.mddapi.payloads.requests.RegisterUserRequest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
