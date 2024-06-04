@@ -27,9 +27,8 @@ public class Subscription {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theme_id")
     private Theme Theme;
-
-    private Boolean isSubscribed;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
