@@ -39,11 +39,12 @@ public class Post {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private User Owner;
+    @JoinColumn(name = "user_id")
+    private User owner;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Theme Theme;
+    private Theme theme;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 }

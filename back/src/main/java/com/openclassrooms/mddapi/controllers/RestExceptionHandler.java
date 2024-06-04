@@ -1,6 +1,8 @@
 package com.openclassrooms.mddapi.controllers;
 
 
+import com.openclassrooms.mddapi.exceptions.PostNotFoundException;
+import com.openclassrooms.mddapi.exceptions.ThemeNotFoundException;
 import com.openclassrooms.mddapi.exceptions.UserAlreadyExistException;
 import com.openclassrooms.mddapi.exceptions.UserNotFoundException;
 import com.openclassrooms.mddapi.payloads.responses.ApiErrorResponse;
@@ -28,7 +30,7 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorApiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({UserNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class, ThemeNotFoundException.class})
     public ResponseEntity<ApiErrorResponse> handleUserNotFoundException(RuntimeException ex) {
         var errorApiResponse = new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorApiResponse, HttpStatus.NOT_FOUND) ;

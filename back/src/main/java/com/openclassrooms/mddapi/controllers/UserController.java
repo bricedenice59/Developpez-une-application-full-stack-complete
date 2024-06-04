@@ -32,7 +32,7 @@ public class UserController {
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponse> getUserDetails(@PathVariable("id") final Integer id) {
-        var user = userService.getUserById(id);
+        var user = userService.getById(id);
 
         var userResponse = UserResponse.builder()
                 .name(user.getName())
@@ -52,14 +52,14 @@ public class UserController {
         var jwtToken = authorizationHeader.substring(bearerTokenString.length());
 
         var userFromToken = jwtService.extractUserName(jwtToken);
-        var userFromDatabase = userService.getUserById(id);
+        var userFromDatabase = userService.getById(id);
 
         if(!userFromToken.equals(userFromDatabase.getEmail())) {
             var errorApiResponse = new ApiErrorResponse(HttpStatus.UNAUTHORIZED.value(), "You are not allowed to update details for this user !", LocalDateTime.now());
             return new ResponseEntity<>(errorApiResponse, HttpStatus.UNAUTHORIZED) ;
         }
 
-        userService.update(id, !userFromDatabase.getEmail().equals(userDetailsRequest.getEmail()), userDetailsRequest);
+        userService.updateFromRequest(id, !userFromDatabase.getEmail().equals(userDetailsRequest.getEmail()), userDetailsRequest);
 
         return new ResponseEntity<>(new SimpleOutputMessageResponse("User details have been updated successfully !"), HttpStatus.OK);
     }

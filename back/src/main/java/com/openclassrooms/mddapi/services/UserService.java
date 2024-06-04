@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.services;
 
-
 import com.openclassrooms.mddapi.exceptions.UserAlreadyExistException;
 import com.openclassrooms.mddapi.exceptions.UserNotFoundException;
 import com.openclassrooms.mddapi.models.User;
@@ -21,12 +20,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(Integer id) {
+    public User getById(Integer id) {
         var user =  userRepository.findById(id);
         return user.orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
-    public void update(int id, boolean updateEmail, UpdateUserDetailsRequest userDetailsRequest) {
+    public User getByEmail(String email) {
+        var user =  userRepository.findByEmail(email);
+        return user.orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    public void updateFromRequest(int id, boolean updateEmail, UpdateUserDetailsRequest userDetailsRequest) {
         if(updateEmail) {
             //does it exist a user that has the same email?
             var userInDBfromEmail = userRepository.findByEmail(userDetailsRequest.getEmail());
@@ -34,7 +38,7 @@ public class UserService {
                 throw new UserAlreadyExistException(MessageFormat.format("A user already exist with this email {0}", userDetailsRequest.getEmail()));
             }
         }
-        var user = getUserById(id);
+        var user = getById(id);
         if(updateEmail)
             user.setEmail(userDetailsRequest.getEmail());
 
