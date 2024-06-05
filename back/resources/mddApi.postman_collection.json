@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "3bc124e9-2c4f-4afc-8447-35d7de37dbad",
+		"name": "mddApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24173064"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lastName\": \"toto\",\n    \"firstName\": \"toto\",\n    \"email\": \"toto3@toto.com\",\n    \"password\": \"test!1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/auth/register",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"bg1@bg.com\",\n    \"password\": \"d=dsf!wmA1d\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/auth/login",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "find by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/user/1",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update details by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3MzQwODUxLCJleHAiOjE3MTczNDk0OTF9._cF7Tw0d0J6T9OXkzqU8wgUxHSEJ2Wu0Zk3NE9N5ktOkkNpFB9-CJQD18hY0jqI1FwX-MHzrvAHttyzKZnpQgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"brice\",\n    \"email\": \"bg2@bg.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/user/8",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"user",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZ0BiZy5jb20iLCJpYXQiOjE3MTc0MzczNDMsImV4cCI6MTcxNzQ0NTk4M30.YgR_VhHF-PTEMMpXTv3S88bY-gTnVCzpBvsn4mj0MO3IdCMs-_KpS2140kiImHUQRz9mwXfnc0kjRSonW9F8Dw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/posts",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZ0BiZy5jb20iLCJpYXQiOjE3MTc0MzczNDMsImV4cCI6MTcxNzQ0NTk4M30.YgR_VhHF-PTEMMpXTv3S88bY-gTnVCzpBvsn4mj0MO3IdCMs-_KpS2140kiImHUQRz9mwXfnc0kjRSonW9F8Dw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/posts/1",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NDQwNDg2LCJleHAiOjE3MTc0NDkxMjZ9.GROjadN_g8W_DzUMvhIClU3b3JpzIhoUCjOnIz45RodDLhzraX0DazPnCs1-JpLBC34Dn7StkL_ehkQhH0pF_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"My post bricedenice\",\n    \"description\": \"The description of my second post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/posts?themeId=1",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "themeId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NDQwNDg2LCJleHAiOjE3MTc0NDkxMjZ9.GROjadN_g8W_DzUMvhIClU3b3JpzIhoUCjOnIz45RodDLhzraX0DazPnCs1-JpLBC34Dn7StkL_ehkQhH0pF_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"That is my second comment created with postman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/posts/3/comments",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"posts",
+								"3",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "themes",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/theme/1",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"theme",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all subsciptions for a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NTEyMDc3LCJleHAiOjE3MTc1MjA3MTd9.FIYitxgjg4SDyjrdSa6Rw41HAdCqEdeRDLEcYPB6rKHMDHrXwTNmVopSuQqtK4l-z2dbBtzvNAseIg6OlWJLPA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribed",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"theme",
+								"subscribed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "manage theme subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NTEzMTM5LCJleHAiOjE3MTc1MjE3Nzl9.E117NCvx0b0eJZESRsfIQBTglRxxTTocegUXvZ8QYZzj1aZdxmJWv8LRoXZm6HdYcOLFbG5TwSxZpgBC0Z9gbw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribe?themeId=3&subscribe=false",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"theme",
+								"subscribe"
+							],
+							"query": [
+								{
+									"key": "themeId",
+									"value": "3"
+								},
+								{
+									"key": "subscribe",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host_url",
+			"value": "http://127.0.0.1"
+		},
+		{
+			"key": "host_port",
+			"value": "8082"
+		}
+	]
+}
