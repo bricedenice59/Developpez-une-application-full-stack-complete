@@ -1,1 +1,32 @@
-<p>signup works!</p>
+<div class="container">
+  <img class="image" src="/assets/logo_p6.png" alt="">
+  <div>
+    <h2>Inscription</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="input-group">
+        <div class="input-group">
+          <label for="userName">Nom d'utilisateur</label>
+          <input formControlName="name"
+                 id="userName">
+        </div>
+        <label for="useremail">Adresse e-mail</label>
+        <input formControlName="email"
+               id="useremail">
+      </div>
+      <div class="input-group">
+        <label for="userpassword">Mot de passe</label>
+        <input  type="password"
+               formControlName="password"
+               id="userpassword"
+               [class.error]="form.controls.password.invalid">
+        <p *ngIf="form.controls.password.errors?.['pattern']" class="error-message">
+          Le mot de passe doit respecter le format requis.
+        </p>
+      </div>
+    </form>
+    <div class="submit-button">
+      <p *ngIf="onError" class="error">An error occurred</p>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
+    </div>
+  </div>
+</div>
