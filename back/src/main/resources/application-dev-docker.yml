@@ -1,0 +1,29 @@
+server:
+  port : 8081
+
+spring:
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
+  config:
+    import: "optional:configtree:/run/secrets/"
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE}
+    username: root
+    password: ${mysql-root-pass}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+application:
+  security:
+    jwt:
+      secret-key: ${jwt-secret-pass}
+      expiration: 8640000
