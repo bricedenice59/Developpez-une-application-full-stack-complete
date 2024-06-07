@@ -1,4 +1,7 @@
-<div class="center">
-  <img src="/assets/logo_p6.png" alt="logo" />
-  <h1>Welcome to MDD</h1>
+<div class="container">
+  <img src="/assets/logo_p6.png" alt="Your Image" class="image">
+  <div class="button-container">
+    <button mat-stroked-button (click)="goToPage('/login')">Se connecter</button>
+    <button mat-stroked-button (click)="goToPage('/signup')">S'inscrire</button>
+  </div>
 </div>

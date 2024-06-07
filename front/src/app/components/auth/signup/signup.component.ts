@@ -4,6 +4,9 @@ import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {RegisterRequest} from "../interfaces/registerRequest.interface";
+import {AuthService} from "../services/auth.service";
+import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
 
 @Component({
   selector: 'app-signup',
@@ -22,13 +25,15 @@ export class SignupComponent {
 
   public form: FormGroup<{ name: FormControl<string | null>; email: FormControl<string | null>; password: FormControl<string | null>; }>
 
-  constructor(private Router: Router,
+  constructor(private router: Router,
+              private authService: AuthService,
               private fb: FormBuilder) {
     this.form = this.fb.group({
       name: [
         '',
         [
           Validators.required,
+          Validators.max(255)
         ]
       ],
       email: [
@@ -49,6 +54,12 @@ export class SignupComponent {
   }
 
   public submit(): void {
-
+    const registerRequest = this.form.value as RegisterRequest;
+    this.authService.register(registerRequest).subscribe({
+      next: (_: void) => {
+        this.router.navigate(['/login']);
+      },
+      error: _ => this.onError = true
+    })
   }
 }

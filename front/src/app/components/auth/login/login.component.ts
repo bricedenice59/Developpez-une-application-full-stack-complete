@@ -4,6 +4,10 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {MatInput} from "@angular/material/input";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {LoginRequest} from "../interfaces/loginRequest.interface";
+import {AuthService} from "../services/auth.service";
+import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
+import {SessionService} from "../services/auth.session.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +16,7 @@ import {NgIf} from "@angular/common";
     MatButton,
     MatInput,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -22,7 +26,9 @@ export class LoginComponent {
 
   public form: FormGroup<{ email: FormControl<string | null>; password: FormControl<string | null>; }>
 
-  constructor(private Router: Router,
+  constructor(private router: Router,
+              private authService: AuthService,
+              private sessionService: SessionService,
               private fb: FormBuilder) {
     this.form = this.fb.group({
       email: [
@@ -42,6 +48,17 @@ export class LoginComponent {
   }
 
   public submit(): void {
-
+    const loginRequest = this.form.value as LoginRequest;
+    this.authService.login(loginRequest).subscribe({
+      next: (response: SessionInformation) => {
+        response.isAuthenticated = true;
+        this.sessionService.logIn(response);
+        this.router.navigate(['/dashboard']);
+      },
+      error: err => {
+        this.onError = true;
+        console.log(err);
+      }
+    });
   }
 }
