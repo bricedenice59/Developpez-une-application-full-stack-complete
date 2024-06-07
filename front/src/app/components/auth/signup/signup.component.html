@@ -26,10 +26,10 @@
           Le mot de passe doit respecter le format requis.
         </p>
       </div>
+      <div class="submit-button">
+        <p *ngIf="onError" class="error">An error occurred</p>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
+      </div>
     </form>
-    <div class="submit-button">
-      <p *ngIf="onError" class="error">An error occurred</p>
-      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
-    </div>
   </div>
 </div>
