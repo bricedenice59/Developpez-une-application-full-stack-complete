@@ -1,11 +1,13 @@
 import {Component, HostListener} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
   animations: [
@@ -35,9 +37,5 @@ export class ToolbarComponent {
 
   toggleToolbar() {
     this.isToggled = !this.isToggled;
-  }
-
-  navigateToRoute() {
-    this.router.navigate(['/user']);
   }
 }

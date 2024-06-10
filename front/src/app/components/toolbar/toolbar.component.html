@@ -5,7 +5,9 @@
       <li><a href="#articles">Articles</a></li>
       <li><a href="#themes">Themes</a></li>
     </ul>
-    <img class="profile-icon" (click)="navigateToRoute()" src="/assets/user-profile.jpg" alt="Profile">
+    <a [routerLink]="['/user']">
+      <img class="profile-icon" src="/assets/user-profile.jpg" alt="Profile">
+    </a>
   </div>
 </div>
 @if (isMobile){
