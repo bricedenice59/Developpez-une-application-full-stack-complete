@@ -1,0 +1,8 @@
+<div class="toolbar" [@slideInOut]="isMobile ? (isToggled ? 'in' : 'out') : 'in'">
+  <a href="#home">Home</a>
+  <a href="#news">News</a>
+</div>
+<div class="icon" (click)="toggleToolbar()" *ngIf="isMobile">
+  <span *ngIf="!isToggled">☰</span>
+  <span *ngIf="isToggled">×</span>
+</div>

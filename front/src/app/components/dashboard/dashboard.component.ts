@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../auth/services/auth.session.service";
+import {ToolbarComponent} from "../toolbar/toolbar.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [
+    ToolbarComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
