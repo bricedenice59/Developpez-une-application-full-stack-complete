@@ -1,0 +1,44 @@
+.header-banner {
+  position: fixed; /* Fixed position */
+  top: 0; /* Stick to the top */
+  width: 100%; /* Full width */
+  height: auto;
+  background-color: white;
+  text-align: start; /* Centered text */
+  padding: 10px 0; /* Some padding */
+}
+
+.container {
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: flex-start; /* Center children horizontally */
+  justify-content: flex-start; /* Center children vertically */
+  height: auto;
+  padding: 10px;
+}
+
+.child {
+  margin: 10px; /* Space between children */
+}
+
+.banner-image {
+  display: block;
+  width: 170px;
+}
+
+.back-arrow {
+  font-size: 48px;
+  text-decoration: none;
+  color: inherit;
+  padding-left: 60px;
+}
+
+@media (max-width: 768px) {
+  .banner-image{
+    display: none;
+  }
+  .back-arrow{
+    font-size: 36px;
+    padding-left: 60px;
+  }
+}

@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {RegisterRequest} from "../interfaces/registerRequest.interface";
 import {AuthService} from "../services/auth.service";
 import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,8 @@ import {SessionInformation} from "../../../interfaces/sessionInformation.interfa
         MatButton,
         MatInput,
         NgIf,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HeaderComponent
     ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'

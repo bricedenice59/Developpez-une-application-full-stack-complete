@@ -8,6 +8,7 @@ import {LoginRequest} from "../interfaces/loginRequest.interface";
 import {AuthService} from "../services/auth.service";
 import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
 import {SessionService} from "../services/auth.session.service";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import {SessionService} from "../services/auth.session.service";
     MatInput,
     NgIf,
     ReactiveFormsModule,
+    HeaderComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
