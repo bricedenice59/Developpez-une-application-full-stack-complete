@@ -1,13 +1,11 @@
-import {Component, HostBinding, HostListener} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {Component, HostListener} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [
-    NgIf
-  ],
+  imports: [],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
   animations: [
@@ -27,12 +25,19 @@ export class ToolbarComponent {
   isToggled = false;
   isMobile = window.innerWidth < 600;
 
+  constructor(private router: Router) {
+  }
+
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize() {
     this.isMobile = window.innerWidth < 600;
   }
 
   toggleToolbar() {
     this.isToggled = !this.isToggled;
+  }
+
+  navigateToRoute() {
+    this.router.navigate(['/user']);
   }
 }

@@ -1,8 +1,19 @@
 <div class="toolbar" [@slideInOut]="isMobile ? (isToggled ? 'in' : 'out') : 'in'">
-  <a href="#home">Home</a>
-  <a href="#news">News</a>
+  <img class="logo" src="/assets/logo_p6.png" alt="Banner Image">
+  <div class="menu-container">
+    <ul class="menu">
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="#themes">Themes</a></li>
+    </ul>
+    <img class="profile-icon" (click)="navigateToRoute()" src="/assets/user-profile.jpg" alt="Profile">
+  </div>
 </div>
-<div class="icon" (click)="toggleToolbar()" *ngIf="isMobile">
-  <span *ngIf="!isToggled">☰</span>
-  <span *ngIf="isToggled">×</span>
-</div>
+@if (isMobile){
+  <div class="toggle-icon" (click)="toggleToolbar()">
+    @if(!isToggled){
+      <span>☰</span>
+    } @else {
+      <span>×</span>
+    }
+  </div>
+}
