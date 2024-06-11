@@ -2,10 +2,6 @@ package com.openclassrooms.mddapi.payloads.responses;
 
 import lombok.*;
 
-
-import java.util.List;
-
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +13,4 @@ public class PostResponse {
     private String description;
     private String createdAt;
     private String author;
-    private List<CommentResponse> comments;
 }

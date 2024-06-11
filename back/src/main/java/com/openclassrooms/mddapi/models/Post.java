@@ -10,8 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -46,7 +44,4 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Theme.class)
     @JoinColumn(name = "theme_id")
     private Theme theme;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Comment.class, fetch = FetchType.LAZY)
-    private List<Comment> comments = new ArrayList<>();
 }

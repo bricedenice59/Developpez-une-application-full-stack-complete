@@ -3,8 +3,10 @@ package com.openclassrooms.mddapi.services;
 import com.openclassrooms.mddapi.exceptions.PostNotFoundException;
 import com.openclassrooms.mddapi.exceptions.ThemeNotFoundException;
 import com.openclassrooms.mddapi.exceptions.UserNotFoundException;
+import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.payloads.requests.PostWithThemeRequest;
+import com.openclassrooms.mddapi.repositories.CommentRepository;
 import com.openclassrooms.mddapi.repositories.PostRepository;
 import com.openclassrooms.mddapi.repositories.ThemeRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
@@ -21,11 +23,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final ThemeRepository themeRepository;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, UserRepository userRepository, ThemeRepository themeRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, ThemeRepository themeRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.themeRepository = themeRepository;
+        this.commentRepository = commentRepository;
     }
 
     public List<Post> getAll() {
@@ -57,5 +61,9 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
+    }
+
+    public List<Comment> getAllComments(Integer postId) {
+        return commentRepository.findByPostId(postId);
     }
 }

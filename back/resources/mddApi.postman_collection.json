@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"lastName\": \"toto\",\n    \"firstName\": \"toto\",\n    \"email\": \"toto3@toto.com\",\n    \"password\": \"test!1234\"\n}",
+							"raw": "{\n    \"name\": \"brice\",\n    \"email\": \"bg1@bg.com\",\n    \"password\": \"d=dsf!wmA1d\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -100,7 +100,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3MzQwODUxLCJleHAiOjE3MTczNDk0OTF9._cF7Tw0d0J6T9OXkzqU8wgUxHSEJ2Wu0Zk3NE9N5ktOkkNpFB9-CJQD18hY0jqI1FwX-MHzrvAHttyzKZnpQgQ",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -144,7 +144,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZ0BiZy5jb20iLCJpYXQiOjE3MTc0MzczNDMsImV4cCI6MTcxNzQ0NTk4M30.YgR_VhHF-PTEMMpXTv3S88bY-gTnVCzpBvsn4mj0MO3IdCMs-_KpS2140kiImHUQRz9mwXfnc0kjRSonW9F8Dw",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -166,14 +166,14 @@
 					"response": []
 				},
 				{
-					"name": "get by id",
+					"name": "get all comments",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZ0BiZy5jb20iLCJpYXQiOjE3MTc0MzczNDMsImV4cCI6MTcxNzQ0NTk4M30.YgR_VhHF-PTEMMpXTv3S88bY-gTnVCzpBvsn4mj0MO3IdCMs-_KpS2140kiImHUQRz9mwXfnc0kjRSonW9F8Dw",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -181,7 +181,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/posts/1",
+							"raw": "{{host_url}}:{{host_port}}/api/posts/2/comments",
 							"host": [
 								"{{host_url}}"
 							],
@@ -189,7 +189,38 @@
 							"path": [
 								"api",
 								"posts",
-								"1"
+								"2",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host_url}}:{{host_port}}/api/posts/2",
+							"host": [
+								"{{host_url}}"
+							],
+							"port": "{{host_port}}",
+							"path": [
+								"api",
+								"posts",
+								"2"
 							]
 						}
 					},
@@ -203,7 +234,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NDQwNDg2LCJleHAiOjE3MTc0NDkxMjZ9.GROjadN_g8W_DzUMvhIClU3b3JpzIhoUCjOnIz45RodDLhzraX0DazPnCs1-JpLBC34Dn7StkL_ehkQhH0pF_g",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -212,7 +243,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"My post bricedenice\",\n    \"description\": \"The description of my second post\"\n}",
+							"raw": "{\n    \"title\": \"My second post bricedenice\",\n    \"description\": \"The second description of my second post\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -220,7 +251,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/posts?themeId=1",
+							"raw": "{{host_url}}:{{host_port}}/api/posts?themeId=3",
 							"host": [
 								"{{host_url}}"
 							],
@@ -232,7 +263,7 @@
 							"query": [
 								{
 									"key": "themeId",
-									"value": "1"
+									"value": "3"
 								}
 							]
 						}
@@ -247,7 +278,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NDQwNDg2LCJleHAiOjE3MTc0NDkxMjZ9.GROjadN_g8W_DzUMvhIClU3b3JpzIhoUCjOnIz45RodDLhzraX0DazPnCs1-JpLBC34Dn7StkL_ehkQhH0pF_g",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -264,7 +295,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/posts/3/comments",
+							"raw": "{{host_url}}:{{host_port}}/api/posts/2/comments",
 							"host": [
 								"{{host_url}}"
 							],
@@ -272,7 +303,7 @@
 							"path": [
 								"api",
 								"posts",
-								"3",
+								"2",
 								"comments"
 							]
 						}
@@ -287,18 +318,27 @@
 				{
 					"name": "get all",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/theme/1",
+							"raw": "{{host_url}}:{{host_port}}/api/theme",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"theme",
-								"1"
+								"theme"
 							]
 						}
 					},
@@ -312,7 +352,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NTEyMDc3LCJleHAiOjE3MTc1MjA3MTd9.FIYitxgjg4SDyjrdSa6Rw41HAdCqEdeRDLEcYPB6rKHMDHrXwTNmVopSuQqtK4l-z2dbBtzvNAseIg6OlWJLPA",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -342,7 +382,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6ImJyaWNlZGVuaWNlIiwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJzdWIiOiJiZzFAYmcuY29tIiwiaWF0IjoxNzE3NTEzMTM5LCJleHAiOjE3MTc1MjE3Nzl9.E117NCvx0b0eJZESRsfIQBTglRxxTTocegUXvZ8QYZzj1aZdxmJWv8LRoXZm6HdYcOLFbG5TwSxZpgBC0Z9gbw",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -350,7 +390,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribe?themeId=3&subscribe=false",
+							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribe?themeId=3&subscribe=true",
 							"host": [
 								"{{host_url}}"
 							],
@@ -367,7 +407,7 @@
 								},
 								{
 									"key": "subscribe",
-									"value": "false"
+									"value": "true"
 								}
 							]
 						}
@@ -377,6 +417,28 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "host_url",
@@ -384,7 +446,7 @@
 		},
 		{
 			"key": "host_port",
-			"value": "8082"
+			"value": "8081"
 		}
 	]
 }

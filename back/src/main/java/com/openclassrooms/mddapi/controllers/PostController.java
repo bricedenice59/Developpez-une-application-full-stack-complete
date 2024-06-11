@@ -96,19 +96,28 @@ public class PostController {
         return new ResponseEntity<>(new SimpleOutputMessageResponse("Comment has been created successfully !"), HttpStatus.OK);
     }
 
-    private PostResponse ToPostResponse(Post post) {
-        if(post == null) {
-            return new PostResponse();
-        }
-
+    /**
+     * Retrieve all comments for a given post
+     */
+    @GetMapping(value = "{postId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAll(@PathVariable("postId") Integer postId) {
+        var postComments = postService.getAllComments(postId);
         var commentsResponses = new ArrayList<CommentResponse>();
-        for (var comment : post.getComments()) {
+        for (var comment : postComments) {
             commentsResponses.add(CommentResponse.builder()
                     .id(comment.getId())
                     .username(comment.getOwner().getName())
                     .text(comment.getComment())
                     .createdAt(comment.getCreatedAt().format(formatter))
                     .build());
+        }
+
+        return new ResponseEntity<>(commentsResponses, HttpStatus.OK);
+    }
+
+    private PostResponse ToPostResponse(Post post) {
+        if(post == null) {
+            return new PostResponse();
         }
 
         return PostResponse.builder()
@@ -118,7 +127,6 @@ public class PostController {
                 .createdAt(post.getCreatedAt().format(formatter))
                 .author(post.getOwner().getName())
                 .themeId(post.getTheme().getId())
-                .comments(commentsResponses)
                 .build();
     }
 }
