@@ -1,18 +1,29 @@
+.wrapper-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  width: 100%;
+  max-width: 800px; /* Adjust the max-width as needed */
+}
 
 .post-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
   max-width: 800px; /* Adjust the max-width as needed */
-  margin: auto;
+  padding-top: 20px;
 }
 
 .column {
-  width: 50%; /* Each column takes up half of the container width */
-  padding: 10px;
-  box-sizing: border-box; /* Include padding in the element's total width and height */
-  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
   cursor: pointer;
 }
 
@@ -28,5 +39,15 @@
 
   .column {
     width: 100%;
+  }
+
+  .wrapper-content {
+    top: 50px;
+    position: relative;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 20px;
   }
 }

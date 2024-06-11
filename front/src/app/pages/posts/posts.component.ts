@@ -3,12 +3,16 @@ import {PostsService} from "../../services/posts/posts.service";
 import {IPostResponse} from "../../services/posts/interfaces/post.response.interface";
 import {map, Subscription} from 'rxjs';
 import {PostContainerComponent} from "../../components/posts/post-container/post-container.component";
+import {RouterLink} from "@angular/router";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-posts',
   standalone: true,
   imports: [
     PostContainerComponent,
+    RouterLink,
+    MatButton,
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
@@ -40,5 +44,13 @@ export class PostsComponent implements OnInit, OnDestroy {
         this.postsArray = values;
       }
     );
+  }
+
+  sortPosts() {
+    return undefined;
+  }
+
+  createPost() {
+
   }
 }
