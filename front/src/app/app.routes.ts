@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import {LoginComponent} from "./components/auth/login/login.component";
 import {SignupComponent} from "./components/auth/signup/signup.component";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {authGuard} from "./core/guards/auth.guard";
 import {unAuthGuard} from "./core/guards/unauth.guard";
+import {PostsComponent} from "./pages/posts/posts.component";
 
 export const routes: Routes = [
   {
@@ -30,7 +30,7 @@ export const routes: Routes = [
   },
   {
     canActivate: [authGuard],
-    path: 'dashboard',
-    component: DashboardComponent ,
+    path: 'posts',
+    component: PostsComponent ,
   }
 ];

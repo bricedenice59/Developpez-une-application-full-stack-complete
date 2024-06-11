@@ -1,0 +1,17 @@
+<div class="post-container">
+  @if(!this.hasData){
+    <p>No post available...</p>
+  }
+  @else{
+    @for (post of this.postsArray; track post.id) {
+      <div class="column">
+        <app-post-container [id]="post.id"
+                            [title]="post.title"
+                            [description]="post.description"
+                            [author]="post.author"
+                            [date]="post.createdAt">
+        </app-post-container>
+      </div>
+    }
+  }
+</div>

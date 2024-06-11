@@ -1,10 +1,9 @@
-import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
+import {CanActivateFn, Router} from "@angular/router";
 import {inject} from "@angular/core";
 import {AuthStorageService} from "../auth.storage.service";
 
-export const unAuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+export const unAuthGuard: CanActivateFn = (): boolean => {
   const router = inject(Router);
-
   const authStorageService = inject(AuthStorageService);
 
   const cookie: string | null = authStorageService.get();
@@ -13,6 +12,6 @@ export const unAuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state:
     return true;
   }
 
-  router.navigate(['/dashboard']);
+  router.navigate(['/posts']);
   return false;
 };

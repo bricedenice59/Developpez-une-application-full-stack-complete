@@ -55,7 +55,7 @@ export class LoginComponent {
       next: (response: SessionInformation) => {
         response.isAuthenticated = true;
         this.sessionService.logIn(response);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/posts']);
       },
       error: err => {
         this.onError = true;
