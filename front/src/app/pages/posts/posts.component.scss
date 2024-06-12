@@ -27,6 +27,10 @@
   cursor: pointer;
 }
 
+.sort-content{
+  cursor: pointer;
+}
+
 /* Target the last column if it's the only child in a row */
 .column:last-child:nth-child(odd) {
   width: 100%;

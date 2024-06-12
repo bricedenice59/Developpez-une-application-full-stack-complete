@@ -1,12 +1,13 @@
 import {Component, HostListener} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {Router, RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
@@ -26,9 +27,6 @@ import {Router, RouterLink} from "@angular/router";
 export class ToolbarComponent {
   isToggled = false;
   isMobile = window.innerWidth < 600;
-
-  constructor(private router: Router) {
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {

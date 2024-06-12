@@ -2,8 +2,8 @@
   <img class="logo" src="/assets/logo_p6.png" alt="Banner Image">
   <div class="menu-container">
     <ul class="menu">
-      <li><a href="#articles">Articles</a></li>
-      <li><a href="#themes">Themes</a></li>
+      <li><a [routerLink]="['/posts']" routerLinkActive="active" ariaCurrentWhenActive="page">Posts</a></li>
+      <li><a [routerLink]="['/topics']" routerLinkActive="active" ariaCurrentWhenActive="page">Topics</a></li>
     </ul>
     <a [routerLink]="['/user']">
       <img class="profile-icon" src="/assets/user-profile.jpg" alt="Profile">

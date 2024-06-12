@@ -2,7 +2,7 @@
   <div class="header">
     <button mat-flat-button color="primary" type="submit" (click)="createPost()">Create post</button>
 
-    <span [ngClass]="{'up': isAscending, 'down': !isAscending}" (click)="sortPosts()" [class.disabled]="!this.hasData">
+    <span class="sort-content" [ngClass]="{'up': isAscending, 'down': !isAscending}" (click)="sortPosts()" [class.disabled]="!this.hasData">
       Sort by date {{ isAscending ? '▲' : '▼' }}
     </span>
   </div>
