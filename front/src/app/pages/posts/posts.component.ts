@@ -5,6 +5,7 @@ import {map, Subscription} from 'rxjs';
 import {PostContainerComponent} from "../../components/posts/post-container/post-container.component";
 import {RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-posts',
@@ -13,6 +14,7 @@ import {MatButton} from "@angular/material/button";
     PostContainerComponent,
     RouterLink,
     MatButton,
+    NgClass,
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
@@ -23,6 +25,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   public postsArray: IPostResponse[] = [];
   public postsSubscription$: Subscription | undefined;
   public hasData: boolean = false;
+  public isAscending: boolean = true;
 
   ngOnDestroy(): void {
     this.postsSubscription$?.unsubscribe();
@@ -41,13 +44,25 @@ export class PostsComponent implements OnInit, OnDestroy {
     ).subscribe(
       (values: IPostResponse[]) => {
         this.hasData = values.length != 0;
-        this.postsArray = values;
+        this.postsArray = this.sortPostsDescending(values);
       }
     );
   }
 
+  sortPostsAscending(posts: IPostResponse[]): IPostResponse[] {
+    return posts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }
+
+  sortPostsDescending(posts: IPostResponse[]): IPostResponse[] {
+    return posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
   sortPosts() {
-    return undefined;
+    this.isAscending = !this.isAscending;
+    if(this.isAscending)
+      this.postsArray = this.sortPostsDescending(this.postsArray);
+    else
+      this.postsArray = this.sortPostsAscending(this.postsArray);
   }
 
   createPost() {

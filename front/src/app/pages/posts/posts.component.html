@@ -1,9 +1,10 @@
-
-
 <div class="wrapper-content">
   <div class="header">
     <button mat-flat-button color="primary" type="submit" (click)="createPost()">Create post</button>
-    <a [href]="this.hasData ? sortPosts() : null" [class.disabled]="!this.hasData">Sort by</a>
+
+    <span [ngClass]="{'up': isAscending, 'down': !isAscending}" (click)="sortPosts()" [class.disabled]="!this.hasData">
+      Sort by date {{ isAscending ? '▲' : '▼' }}
+    </span>
   </div>
   @if(!this.hasData){
     <p>No post available...</p>
