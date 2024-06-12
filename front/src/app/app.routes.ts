@@ -4,7 +4,6 @@ import {SignupComponent} from "./components/auth/signup/signup.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {authGuard} from "./core/guards/auth.guard";
 import {unAuthGuard} from "./core/guards/unauth.guard";
-import {PostsComponent} from "./pages/posts/posts.component";
 
 export const routes: Routes = [
   {
@@ -31,6 +30,6 @@ export const routes: Routes = [
   {
     canActivate: [authGuard],
     path: 'posts',
-    component: PostsComponent ,
+    loadChildren: () => import('./pages/posts/posts.module').then(m => m.PostsModule)
   }
 ];

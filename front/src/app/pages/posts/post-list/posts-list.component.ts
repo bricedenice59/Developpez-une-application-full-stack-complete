@@ -1,14 +1,15 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {PostsService} from "../../services/posts/posts.service";
-import {IPostResponse} from "../../services/posts/interfaces/post.response.interface";
+import {PostsService} from "../../../services/posts/posts.service";
+import {IPostResponse} from "../../../services/posts/interfaces/post.response.interface";
 import {map, Subscription} from 'rxjs';
-import {PostContainerComponent} from "../../components/posts/post-container/post-container.component";
-import {RouterLink} from "@angular/router";
+import {PostContainerComponent} from "../../../components/posts/post-container/post-container.component";
+import {Router, RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
+import {DateTimeFormatter} from "../../../core/utils/date.formatter";
 
 @Component({
-  selector: 'app-posts',
+  selector: 'app-posts-list',
   standalone: true,
   imports: [
     PostContainerComponent,
@@ -16,12 +17,13 @@ import {NgClass} from "@angular/common";
     MatButton,
     NgClass,
   ],
-  templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss'
+  templateUrl: './posts-list.component.html',
+  styleUrl: './posts-list.component.scss'
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class PostsListComponent implements OnInit, OnDestroy {
 
   private readonly postsService = inject(PostsService);
+  private readonly router = inject(Router);
   public postsArray: IPostResponse[] = [];
   public postsSubscription$: Subscription | undefined;
   public hasData: boolean = false;
@@ -35,10 +37,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.postsSubscription$ = this.postsService.getAll().pipe(
       map((values: IPostResponse[]) => {
         return values.map(post => {
-          const dateObj = new Date(post.createdAt);
-
-          const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()} ${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')}`;
-          return {...post, createdAt: formattedDate};
+          return {...post, createdAt: DateTimeFormatter.Format(new Date(post.createdAt))};
         });
       })
     ).subscribe(
@@ -67,5 +66,9 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   createPost() {
 
+  }
+
+  navigateWithData(post: IPostResponse) {
+    this.router.navigate(['posts/post-detail'], { state: { data: post } });
   }
 }

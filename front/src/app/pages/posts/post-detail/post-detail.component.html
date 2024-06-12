@@ -1,0 +1,49 @@
+<div class="wrapper-content">
+  @if(!hasError) {
+    <div class="post-detail-box">
+      <h3>{{postData?.title}}</h3>
+      <p>
+        <span class="post-info">{{postData?.createdAt}}</span>
+        <span class="post-info">Author:  {{postData?.author}}</span>
+        <span class="post-info">Topic:  {{postData?.themeId}}</span>
+      </p>
+      <div class="scrollable-post-description-paragraph">
+        <p>{{postData?.description}}</p>
+    </div>
+      <div class="comments-box">
+        <p>
+          <span class="post-info">Comments</span>
+        </p>
+        @if(this.commentsArray.length == 0) {
+          <span class="comment-non-available">No comments available... write one here-below.</span>
+        }
+        @else{
+          <div class="comment-container">
+            @for (comment of this.commentsArray; track comment.id) {
+              <div class="comment">
+                <label class="username-label">{{comment.username}}</label>
+                <div class="comment-text-container">
+                  <p>{{comment.text}}</p>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="comment-submit-container">
+          <div class="give-comment-box">
+              <textarea [(ngModel)]="commentText" placeholder="Write your comment..." rows="4" maxlength="{{maxLengthCommentText}}" (input)="updateCharCount()"></textarea>
+          </div>
+          <button class="image-button" aria-label="Send comment" (click)="addComment($event)">
+            <img src="/assets/paper-plane.png" alt="Submit">
+          </button>
+        </div>
+        <div class="char-count">{{charCountCommentText}} characters remaining</div>
+      </div>
+    </div>
+  }
+  @else{
+    <h2 class="error">There was an error loading post data!</h2>
+  }
+</div>
+

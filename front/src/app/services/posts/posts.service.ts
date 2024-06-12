@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import {IPostResponse} from "./interfaces/post.response.interface";
-
+import {ICommentResponse} from "./interfaces/comment.response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,15 @@ export class PostsService {
     return this.httpClient.get<IPostResponse[]>(this.pathService);
   }
 
-  public getDetail(id: number): Observable<IPostResponse> {
-    return this.httpClient.get<IPostResponse>(`${this.pathService}/${id}`);
+  public getAllComments(id: number): Observable<ICommentResponse[]> {
+    return this.httpClient.get<ICommentResponse[]>(`${this.pathService}/${id}/comments`);
+  }
+
+  public saveComment(id: number, commentStr: string): Observable<void> {
+    const obj = {
+      comment: commentStr
+    };
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.httpClient.post<void>(`${this.pathService}/${id}/comments`, JSON.stringify(obj), { headers });
   }
 }

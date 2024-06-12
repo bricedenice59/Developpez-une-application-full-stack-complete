@@ -1,5 +1,6 @@
 export interface IPostResponse {
-    id : number
+    id : number,
+    themeId: number,
     title: string
     description: string
     createdAt: string
