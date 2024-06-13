@@ -1,10 +1,10 @@
 package com.openclassrooms.mddapi.payloads.responses;
 
+import com.openclassrooms.mddapi.utils.DateFormatter;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Data
@@ -28,7 +28,6 @@ public class ApiErrorResponse {
     }
 
     private String formatDate(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return date.format(formatter);
+        return date.format(DateFormatter.getFormatter());
     }
 }

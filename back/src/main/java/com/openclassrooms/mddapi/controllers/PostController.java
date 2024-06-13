@@ -11,13 +11,13 @@ import com.openclassrooms.mddapi.security.services.JwtService;
 import com.openclassrooms.mddapi.services.CommentService;
 import com.openclassrooms.mddapi.services.PostService;
 
+import com.openclassrooms.mddapi.utils.DateFormatter;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class PostController {
 
     final String bearerTokenString = "Bearer ";
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private final PostService postService;
     private final CommentService commentService;
     private final JwtService jwtService;
@@ -68,14 +67,14 @@ public class PostController {
      * Post a post
      */
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addPost(@Valid @RequestParam final Integer themeId,
+    public ResponseEntity<?> addPost(@Valid @RequestParam final Integer topicId,
                                      @Valid @RequestBody PostWithTopicRequest postRequest,
                                      @RequestHeader("Authorization") String authorizationHeader) {
 
         var jwtToken = authorizationHeader.substring(bearerTokenString.length());
         var userFromToken = jwtService.extractUserName(jwtToken);
 
-        postService.createFromRequest(themeId, userFromToken, postRequest);
+        postService.createFromRequest(topicId, userFromToken, postRequest);
 
         return new ResponseEntity<>(new SimpleOutputMessageResponse("Post has been created successfully !"), HttpStatus.OK);
     }
@@ -108,7 +107,7 @@ public class PostController {
                     .id(comment.getId())
                     .username(comment.getOwner().getName())
                     .text(comment.getComment())
-                    .createdAt(comment.getCreatedAt().format(formatter))
+                    .createdAt(comment.getCreatedAt().format(DateFormatter.getFormatter()))
                     .build());
         }
 
@@ -124,7 +123,7 @@ public class PostController {
                 .id(post.getId())
                 .title(post.getTitle())
                 .description(post.getDescription())
-                .createdAt(post.getCreatedAt().format(formatter))
+                .createdAt(post.getCreatedAt().format(DateFormatter.getFormatter()))
                 .author(post.getOwner().getName())
                 .topicId(post.getTopic().getId())
                 .topicName(post.getTopic().getTitle())

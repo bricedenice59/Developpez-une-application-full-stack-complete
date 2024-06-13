@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 public class TopicController {
 
     final String bearerTokenString = "Bearer ";
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private final JwtService jwtService;
     private final TopicService topicService;
     private final SubscriptionService topicsSubscriptionService;
