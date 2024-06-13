@@ -28,8 +28,8 @@ public class Subscription {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme_id")
-    private Theme Theme;
+    @JoinColumn(name = "topic_id")
+    private Topic Topic;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -1,14 +1,14 @@
 package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.exceptions.PostNotFoundException;
-import com.openclassrooms.mddapi.exceptions.ThemeNotFoundException;
+import com.openclassrooms.mddapi.exceptions.TopicNotFoundException;
 import com.openclassrooms.mddapi.exceptions.UserNotFoundException;
 import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;
-import com.openclassrooms.mddapi.payloads.requests.PostWithThemeRequest;
+import com.openclassrooms.mddapi.payloads.requests.PostWithTopicRequest;
 import com.openclassrooms.mddapi.repositories.CommentRepository;
 import com.openclassrooms.mddapi.repositories.PostRepository;
-import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.TopicRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,13 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final ThemeRepository themeRepository;
+    private final TopicRepository topicRepository;
     private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, UserRepository userRepository, ThemeRepository themeRepository, CommentRepository commentRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, TopicRepository topicRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
-        this.themeRepository = themeRepository;
+        this.topicRepository = topicRepository;
         this.commentRepository = commentRepository;
     }
 
@@ -41,22 +41,22 @@ public class PostService {
         return post.orElseThrow(() -> new PostNotFoundException("Post not found"));
     }
 
-    public void createFromRequest(final Integer ThemeId, final String userEmail, final PostWithThemeRequest postRequest) {
+    public void createFromRequest(final Integer ThemeId, final String userEmail, final PostWithTopicRequest postRequest) {
         var owner = userRepository.findByEmail(userEmail);
         if(owner.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }
 
-        var theme = themeRepository.findById(ThemeId);
+        var theme = topicRepository.findById(ThemeId);
         if(theme.isEmpty()) {
-            throw new ThemeNotFoundException("Theme not found");
+            throw new TopicNotFoundException("Topic not found");
         }
 
         var post = Post.builder()
                 .title(postRequest.getTitle())
                 .description(postRequest.getDescription())
                 .createdAt(LocalDateTime.now())
-                .theme(theme.get())
+                .topic(theme.get())
                 .owner(owner.get())
                 .build();
 

@@ -41,7 +41,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Theme.class)
-    @JoinColumn(name = "theme_id")
-    private Theme theme;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Topic.class)
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 }

@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.payloads.requests.CommentPostRequest;
-import com.openclassrooms.mddapi.payloads.requests.PostWithThemeRequest;
+import com.openclassrooms.mddapi.payloads.requests.PostWithTopicRequest;
 import com.openclassrooms.mddapi.payloads.responses.CommentResponse;
 import com.openclassrooms.mddapi.payloads.responses.PostResponse;
 import com.openclassrooms.mddapi.payloads.responses.SimpleOutputMessageResponse;
@@ -69,7 +69,7 @@ public class PostController {
      */
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addPost(@Valid @RequestParam final Integer themeId,
-                                     @Valid @RequestBody PostWithThemeRequest postRequest,
+                                     @Valid @RequestBody PostWithTopicRequest postRequest,
                                      @RequestHeader("Authorization") String authorizationHeader) {
 
         var jwtToken = authorizationHeader.substring(bearerTokenString.length());
@@ -126,7 +126,8 @@ public class PostController {
                 .description(post.getDescription())
                 .createdAt(post.getCreatedAt().format(formatter))
                 .author(post.getOwner().getName())
-                .themeId(post.getTheme().getId())
+                .topicId(post.getTopic().getId())
+                .topicName(post.getTopic().getTitle())
                 .build();
     }
 }

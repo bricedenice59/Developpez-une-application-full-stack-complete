@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "themes")
+@Table(name = "topics")
 @EntityListeners(AuditingEntityListener.class)
-public class Theme {
+public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

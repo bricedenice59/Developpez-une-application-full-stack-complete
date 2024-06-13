@@ -8,7 +8,8 @@ import lombok.*;
 @Data
 public class PostResponse {
     private Integer id;
-    private Integer themeId;
+    private Integer topicId;
+    private String topicName;
     private String title;
     private String description;
     private String createdAt;

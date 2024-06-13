@@ -16,45 +16,45 @@ import java.util.Optional;
 public class SubscriptionService {
 
     private final UserService userService;
-    private final ThemeService themeService;
+    private final TopicService topicService;
     private final SubscriptionRepository subscriptionRepository;
 
-    public SubscriptionService(UserService userService, ThemeService themeService, SubscriptionRepository subscriptionRepository) {
+    public SubscriptionService(UserService userService, TopicService topicService, SubscriptionRepository subscriptionRepository) {
         this.userService = userService;
-        this.themeService = themeService;
+        this.topicService = topicService;
         this.subscriptionRepository = subscriptionRepository;
     }
 
     public List<Integer> getAllSubscribed(final String userEmail) {
         var user = userService.getByEmail(userEmail);
 
-        var themeIds = subscriptionRepository.findAllThemeIdsSubscribedByUser(user.getId());
-        return themeIds.orElse(new ArrayList<>());
+        var topicIds = subscriptionRepository.findAllThemeIdsSubscribedByUser(user.getId());
+        return topicIds.orElse(new ArrayList<>());
     }
 
-    public void ManageSubscription(boolean subscribe, final String userEmail, final Integer theme_id){
+    public void ManageSubscription(boolean subscribe, final String userEmail, final Integer topicId){
         var user = userService.getByEmail(userEmail);
-        var theme = themeService.getById(theme_id);
+        var topic = topicService.getById(topicId);
         var userId = user.getId();
 
-        Optional<Subscription> subscription = subscriptionRepository.findUniqueSubscriptionForThemeByUser(theme.getId(), userId);
+        Optional<Subscription> subscription = subscriptionRepository.findUniqueSubscriptionForThemeByUser(topic.getId(), userId);
         if(!subscribe){
-            //delete subscription that matches a tuple theme/user
+            //delete subscription that matches a tuple topic/user
             if (subscription.isPresent()) {
-                subscriptionRepository.deleteByThemeIdAndUserId(theme.getId(), userId);
+                subscriptionRepository.deleteByThemeIdAndUserId(topic.getId(), userId);
             }
             else {
-                throw new ThemeSubscriptionException("Impossible to unsubscribe to a theme with id = " + theme.getId() + " " + "No subscription found");
+                throw new ThemeSubscriptionException("Impossible to unsubscribe to a topic with id = " + topic.getId() + " " + "No subscription found");
             }
         }
         else {
             if(subscription.isPresent()){
-                throw new ThemeSubscriptionException("Impossible to subscribe to a theme with id = " + theme.getId() +  " " +"Subscription already exist");
+                throw new ThemeSubscriptionException("Impossible to subscribe to a topic with id = " + topic.getId() +  " " +"Subscription already exist");
             }
             var newSubscription = Subscription
                     .builder()
                     .createdAt(LocalDateTime.now())
-                    .Theme(theme)
+                    .Topic(topic)
                     .user(user)
                     .build();
             subscriptionRepository.save(newSubscription);

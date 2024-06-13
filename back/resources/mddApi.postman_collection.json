@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"brice\",\n    \"email\": \"bg1@bg.com\",\n    \"password\": \"d=dsf!wmA1d\"\n}",
+							"raw": "{\n    \"name\": \"brice\",\n    \"email\": \"\",\n    \"password\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"bg1@bg.com\",\n    \"password\": \"d=dsf!wmA1d\"\n}",
+							"raw": "{\n    \"email\": \"\",\n    \"password\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -181,7 +181,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/posts/2/comments",
+							"raw": "{{host_url}}:{{host_port}}/api/posts/1/comments",
 							"host": [
 								"{{host_url}}"
 							],
@@ -189,7 +189,7 @@
 							"path": [
 								"api",
 								"posts",
-								"2",
+								"1",
 								"comments"
 							]
 						}
@@ -287,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"comment\": \"That is my second comment created with postman\"\n}",
+							"raw": "{\n    \"comment\": \"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -295,7 +295,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/posts/2/comments",
+							"raw": "{{host_url}}:{{host_port}}/api/posts/1/comments",
 							"host": [
 								"{{host_url}}"
 							],
@@ -303,7 +303,7 @@
 							"path": [
 								"api",
 								"posts",
-								"2",
+								"1",
 								"comments"
 							]
 						}
@@ -313,7 +313,7 @@
 			]
 		},
 		{
-			"name": "themes",
+			"name": "topics",
 			"item": [
 				{
 					"name": "get all",
@@ -331,14 +331,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/theme",
+							"raw": "{{host_url}}:{{host_port}}/api/topics",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"theme"
+								"topics"
 							]
 						}
 					},
@@ -360,14 +360,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribed",
+							"raw": "{{host_url}}:{{host_port}}/api/topics/subscribed",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"theme",
+								"topics",
 								"subscribed"
 							]
 						}
@@ -375,7 +375,7 @@
 					"response": []
 				},
 				{
-					"name": "manage theme subscription",
+					"name": "manage topic subscription",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -390,19 +390,19 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/theme/subscribe?themeId=3&subscribe=true",
+							"raw": "{{host_url}}:{{host_port}}/api/topics/subscribe?topicId=3&subscribe=true",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"theme",
+								"topics",
 								"subscribe"
 							],
 							"query": [
 								{
-									"key": "themeId",
+									"key": "topicId",
 									"value": "3"
 								},
 								{
