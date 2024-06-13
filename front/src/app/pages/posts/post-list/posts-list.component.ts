@@ -65,7 +65,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   }
 
   createPost() {
-
+    this.router.navigate(['posts/post-create']);
   }
 
   navigateWithData(post: IPostResponse) {
