@@ -27,7 +27,7 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorApiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class, ThemeNotFoundException.class, ThemeSubscriptionException.class})
+    @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class, TopicNotFoundException.class, ThemeSubscriptionException.class})
     public ResponseEntity<ApiErrorResponse> handleUserNotFoundException(RuntimeException ex) {
         var errorApiResponse = new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorApiResponse, HttpStatus.NOT_FOUND) ;

@@ -12,15 +12,15 @@ import java.util.Optional;
 
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
-    @Query("SELECT s.Theme.id FROM Subscription s WHERE s.user.id = :userId")
+    @Query("SELECT s.Topic.id FROM Subscription s WHERE s.user.id = :userId")
     Optional<List<Integer>> findAllThemeIdsSubscribedByUser(Integer userId);
 
-    @Query("SELECT s FROM Subscription s WHERE s.Theme.id = :themeId AND s.user.id = :userId")
-    Optional<Subscription> findUniqueSubscriptionForThemeByUser(Integer themeId, Integer userId);
+    @Query("SELECT s FROM Subscription s WHERE s.Topic.id = :topicId AND s.user.id = :userId")
+    Optional<Subscription> findUniqueSubscriptionForThemeByUser(Integer topicId, Integer userId);
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Subscription s WHERE s.Theme.id = :themeId AND s.user.id = :userId")
-    void deleteByThemeIdAndUserId(Integer themeId, Integer userId);
+    @Query("DELETE FROM Subscription s WHERE s.Topic.id = :topicId AND s.user.id = :userId")
+    void deleteByThemeIdAndUserId(Integer topicId, Integer userId);
 }
 

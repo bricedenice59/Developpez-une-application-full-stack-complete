@@ -2,11 +2,11 @@ package com.openclassrooms.mddapi.unit.services;
 
 import com.openclassrooms.mddapi.exceptions.ThemeSubscriptionException;
 import com.openclassrooms.mddapi.models.Subscription;
-import com.openclassrooms.mddapi.models.Theme;
+import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repositories.SubscriptionRepository;
 import com.openclassrooms.mddapi.services.SubscriptionService;
-import com.openclassrooms.mddapi.services.ThemeService;
+import com.openclassrooms.mddapi.services.TopicService;
 import com.openclassrooms.mddapi.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +33,7 @@ public class SubscriptionServiceTests {
     private SubscriptionRepository subscriptionRepository;
 
     @Mock
-    private ThemeService themeService;
+    private TopicService topicService;
 
     @InjectMocks
     private SubscriptionService subscriptionService;
@@ -63,11 +63,11 @@ public class SubscriptionServiceTests {
         User mockUser = new User();
         mockUser.setId(1);
 
-        Theme mockTheme = new Theme();
-        mockTheme.setId(themeId);
+        Topic mockTopic = new Topic();
+        mockTopic.setId(themeId);
 
         when(userService.getByEmail(userEmail)).thenReturn(mockUser);
-        when(themeService.getById(themeId)).thenReturn(mockTheme);
+        when(topicService.getById(themeId)).thenReturn(mockTopic);
         when(subscriptionRepository.findUniqueSubscriptionForThemeByUser(themeId, mockUser.getId())).thenReturn(Optional.empty());
 
         subscriptionService.ManageSubscription(true, userEmail, themeId);
@@ -83,14 +83,14 @@ public class SubscriptionServiceTests {
         User mockUser = new User();
         mockUser.setId(1);
 
-        Theme mockTheme = new Theme();
-        mockTheme.setId(themeId);
+        Topic mockTopic = new Topic();
+        mockTopic.setId(themeId);
 
         Subscription mockSubscription = new Subscription();
         mockSubscription.setId(1);
 
         when(userService.getByEmail(userEmail)).thenReturn(mockUser);
-        when(themeService.getById(themeId)).thenReturn(mockTheme);
+        when(topicService.getById(themeId)).thenReturn(mockTopic);
         when(subscriptionRepository.findUniqueSubscriptionForThemeByUser(themeId, mockUser.getId())).thenReturn(Optional.of(mockSubscription));
 
         assertThrows(ThemeSubscriptionException.class, () -> subscriptionService.ManageSubscription(true, userEmail, themeId));
@@ -104,12 +104,12 @@ public class SubscriptionServiceTests {
         User mockUser = new User();
         mockUser.setId(1);
 
-        Theme mockTheme = new Theme();
-        mockTheme.setId(themeId);
+        Topic mockTopic = new Topic();
+        mockTopic.setId(themeId);
 
 
         when(userService.getByEmail(userEmail)).thenReturn(mockUser);
-        when(themeService.getById(themeId)).thenReturn(mockTheme);
+        when(topicService.getById(themeId)).thenReturn(mockTopic);
         when(subscriptionRepository.findUniqueSubscriptionForThemeByUser(themeId, mockUser.getId())).thenReturn(Optional.empty());
 
         // Call the service method
@@ -124,14 +124,14 @@ public class SubscriptionServiceTests {
         User mockUser = new User();
         mockUser.setId(1);
 
-        Theme mockTheme = new Theme();
-        mockTheme.setId(themeId);
+        Topic mockTopic = new Topic();
+        mockTopic.setId(themeId);
 
         Subscription mockSubscription = new Subscription();
         mockSubscription.setId(1);
 
         when(userService.getByEmail(userEmail)).thenReturn(mockUser);
-        when(themeService.getById(themeId)).thenReturn(mockTheme);
+        when(topicService.getById(themeId)).thenReturn(mockTopic);
         when(subscriptionRepository.findUniqueSubscriptionForThemeByUser(themeId, mockUser.getId())).thenReturn(Optional.of(mockSubscription));
 
         subscriptionService.ManageSubscription(false, userEmail, themeId);

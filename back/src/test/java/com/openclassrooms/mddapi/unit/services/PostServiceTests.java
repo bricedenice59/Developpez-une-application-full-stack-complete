@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.openclassrooms.mddapi.exceptions.*;
 import com.openclassrooms.mddapi.models.Post;
-import com.openclassrooms.mddapi.models.Theme;
+import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.payloads.requests.PostWithThemeRequest;
+import com.openclassrooms.mddapi.payloads.requests.PostWithTopicRequest;
 import com.openclassrooms.mddapi.repositories.PostRepository;
-import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.TopicRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.PostService;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +35,7 @@ public class PostServiceTests {
     private UserRepository userRepository;
 
     @Mock
-    private ThemeRepository themeRepository;
+    private TopicRepository topicRepository;
 
     @InjectMocks
     private PostService postService;
@@ -98,16 +98,16 @@ public class PostServiceTests {
     public void PostServiceTests_createFromRequest_ShouldSuccessfullySaveComment() {
         Integer themeId = 1;
         String userEmail = "test@example.com";
-        PostWithThemeRequest postRequest = new PostWithThemeRequest();
+        PostWithTopicRequest postRequest = new PostWithTopicRequest();
         postRequest.setTitle("Test Title");
         postRequest.setDescription("Test Description");
 
         User mockUser = new User();
         mockUser.setEmail(userEmail);
-        Theme mockTheme = new Theme();
+        Topic mockTopic = new Topic();
 
         when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(mockUser));
-        when(themeRepository.findById(themeId)).thenReturn(Optional.of(mockTheme));
+        when(topicRepository.findById(themeId)).thenReturn(Optional.of(mockTopic));
         when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
         postService.createFromRequest(themeId, userEmail, postRequest);
@@ -120,7 +120,7 @@ public class PostServiceTests {
     public void PostServiceTests_createFromRequest_WithNonExistentUser_ShouldThrowAPostNotFoundException() {
         Integer themeId = 1;
         String userEmail = "nonexistent@example.com";
-        PostWithThemeRequest postRequest = new PostWithThemeRequest();
+        PostWithTopicRequest postRequest = new PostWithTopicRequest();
 
         when(userRepository.findByEmail(userEmail)).thenReturn(Optional.empty());
 
@@ -128,19 +128,19 @@ public class PostServiceTests {
     }
 
     @Test
-    @DisplayName("Test create a new post with a non existent theme should fail and throw a ThemeNotFoundException")
+    @DisplayName("Test create a new post with a non existent topic should fail and throw a TopicNotFoundException")
     public void PostServiceTests_createFromRequest_WithNonExistentTheme_ShouldThrowAThemeNotFoundException() {
         Integer themeId = 99;
         String userEmail = "test@example.com";
-        PostWithThemeRequest postRequest = new PostWithThemeRequest();
+        PostWithTopicRequest postRequest = new PostWithTopicRequest();
 
         User mockUser = new User();
         mockUser.setEmail(userEmail);
 
         when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(mockUser));
-        when(themeRepository.findById(themeId)).thenReturn(Optional.empty());
+        when(topicRepository.findById(themeId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(ThemeNotFoundException.class, () -> postService.createFromRequest(themeId, userEmail, postRequest));
+        assertThrows(TopicNotFoundException.class, () -> postService.createFromRequest(themeId, userEmail, postRequest));
     }
 }

@@ -1,9 +1,9 @@
 package com.openclassrooms.mddapi;
 
 import com.openclassrooms.mddapi.models.Role;
-import com.openclassrooms.mddapi.models.Theme;
+import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.repositories.RoleRepository;
-import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.TopicRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,39 +21,39 @@ public class MddApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner runner (RoleRepository roleRepository, ThemeRepository themeRepository) {
+	public CommandLineRunner runner (RoleRepository roleRepository, TopicRepository topicRepository) {
 		return args -> {
 			if(roleRepository.findByName("USER").isEmpty()) {
 				roleRepository.save(Role.builder().name("USER").build());
 			}
 
-			if(themeRepository.count() == 0)
+			if(topicRepository.count() == 0)
 			{
-				//create dummy themes for the application
-				List<Theme> themes = new ArrayList<>();
+				//create dummy topics for the application
+				List<Topic> topics = new ArrayList<>();
 
-				var theme1 = Theme.builder()
+				var topic1 = Topic.builder()
 						.title("PC Hardware World")
 						.description("PC Hardware is an essential tool if you are interested about computer hardware and software, we provide news, unbiased reviews and guides.")
 						.createdAt(LocalDateTime.now())
 						.build();
-				themes.add(theme1);
+				topics.add(topic1);
 
-				var theme2 = Theme.builder()
+				var topic2 = Topic.builder()
 						.title("Apple Hardware World")
 						.description("We are fully dedicated on giving news for Apple fanboy :)")
 						.createdAt(LocalDateTime.now())
 						.build();
-				themes.add(theme2);
+				topics.add(topic2);
 
-				var theme3 = Theme.builder()
+				var topic3 = Topic.builder()
 						.title("Crypto World")
 						.description("Everything you need to know about Cryptoassets in the rapidly growing cryptocurrency space.")
 						.createdAt(LocalDateTime.now())
 						.build();
-				themes.add(theme3);
+				topics.add(topic3);
 
-				themeRepository.saveAll(themes);
+				topicRepository.saveAll(topics);
 			}
 		};
 	}

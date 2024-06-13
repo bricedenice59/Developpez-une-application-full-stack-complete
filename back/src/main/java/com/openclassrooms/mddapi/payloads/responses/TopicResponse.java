@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ThemeResponse {
+public class TopicResponse {
     private Integer id;
     private String title;
     private String description;

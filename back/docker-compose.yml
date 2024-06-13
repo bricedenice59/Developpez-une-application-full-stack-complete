@@ -30,6 +30,22 @@ services:
     networks:
       - spring-boot-app-network
 
+  mdd-api:
+    image: springboot-mdd-api:latest
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      JWT_SECRET_FILE: /run/secrets/jwt-secret-pass
+      MYSQL_HOST: mysql_server
+      MYSQL_PORT: 3306
+      <<: *common-variables
+    secrets:
+      - mysql-root-pass
+      - jwt-secret-pass
+    networks:
+      - spring-boot-app-network
+
 volumes:
   mysql-data:
 
@@ -38,4 +54,6 @@ networks:
 
 secrets:
   mysql-root-pass:
+    external: true
+  jwt-secret-pass:
     external: true

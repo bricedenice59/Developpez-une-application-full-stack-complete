@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class PostWithThemeRequest {
+public class PostWithTopicRequest {
 
     @NotBlank(message = "A title is required!")
     private String title;

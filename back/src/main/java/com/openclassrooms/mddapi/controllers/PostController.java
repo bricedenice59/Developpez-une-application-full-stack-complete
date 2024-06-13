@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.payloads.requests.CommentPostRequest;
-import com.openclassrooms.mddapi.payloads.requests.PostWithThemeRequest;
+import com.openclassrooms.mddapi.payloads.requests.PostWithTopicRequest;
 import com.openclassrooms.mddapi.payloads.responses.CommentResponse;
 import com.openclassrooms.mddapi.payloads.responses.PostResponse;
 import com.openclassrooms.mddapi.payloads.responses.SimpleOutputMessageResponse;
@@ -69,7 +69,7 @@ public class PostController {
      */
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addPost(@Valid @RequestParam final Integer themeId,
-                                     @Valid @RequestBody PostWithThemeRequest postRequest,
+                                     @Valid @RequestBody PostWithTopicRequest postRequest,
                                      @RequestHeader("Authorization") String authorizationHeader) {
 
         var jwtToken = authorizationHeader.substring(bearerTokenString.length());
@@ -96,13 +96,14 @@ public class PostController {
         return new ResponseEntity<>(new SimpleOutputMessageResponse("Comment has been created successfully !"), HttpStatus.OK);
     }
 
-    private PostResponse ToPostResponse(Post post) {
-        if(post == null) {
-            return new PostResponse();
-        }
-
+    /**
+     * Retrieve all comments for a given post
+     */
+    @GetMapping(value = "{postId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAll(@PathVariable("postId") Integer postId) {
+        var postComments = postService.getAllComments(postId);
         var commentsResponses = new ArrayList<CommentResponse>();
-        for (var comment : post.getComments()) {
+        for (var comment : postComments) {
             commentsResponses.add(CommentResponse.builder()
                     .id(comment.getId())
                     .username(comment.getOwner().getName())
@@ -111,14 +112,22 @@ public class PostController {
                     .build());
         }
 
+        return new ResponseEntity<>(commentsResponses, HttpStatus.OK);
+    }
+
+    private PostResponse ToPostResponse(Post post) {
+        if(post == null) {
+            return new PostResponse();
+        }
+
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .description(post.getDescription())
                 .createdAt(post.getCreatedAt().format(formatter))
                 .author(post.getOwner().getName())
-                .themeId(post.getTheme().getId())
-                .comments(commentsResponses)
+                .topicId(post.getTopic().getId())
+                .topicName(post.getTopic().getTitle())
                 .build();
     }
 }

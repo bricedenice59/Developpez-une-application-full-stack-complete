@@ -1,10 +1,10 @@
 package com.openclassrooms.mddapi.unit.repository;
 
 import com.openclassrooms.mddapi.models.Subscription;
-import com.openclassrooms.mddapi.models.Theme;
+import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repositories.SubscriptionRepository;
-import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.TopicRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,30 +31,30 @@ public class SubscriptionRepositoryTests {
     private SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    private ThemeRepository themeRepository;
+    private TopicRepository topicRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    Theme theme1, theme2;
+    Topic topic1, topic2;
     User user1;
     Subscription subscription1, subscription2;
 
     @BeforeEach
     public void setUp() {
-        theme1 = Theme.builder()
-                .title("Test Theme 1")
+        topic1 = Topic.builder()
+                .title("Test Topic 1")
                 .description("Test description 1")
                 .createdAt(LocalDateTime.now())
                 .build();
-        theme2 = Theme.builder()
-                .title("Test Theme 1")
+        topic2 = Topic.builder()
+                .title("Test Topic 1")
                 .description("Test description 1")
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        themeRepository.save(theme1);
-        themeRepository.save(theme2);
+        topicRepository.save(topic1);
+        topicRepository.save(topic2);
 
         user1 = User.builder()
                 .name("test")
@@ -67,12 +67,12 @@ public class SubscriptionRepositoryTests {
 
         subscription1 = Subscription.builder()
                 .user(user1)
-                .Theme(theme1)
+                .Topic(topic1)
                 .createdAt(LocalDateTime.now())
                 .build();
         subscription2 = Subscription.builder()
                 .user(user1)
-                .Theme(theme2)
+                .Topic(topic2)
                 .createdAt(LocalDateTime.now())
                 .build();
 
@@ -83,8 +83,8 @@ public class SubscriptionRepositoryTests {
     @AfterEach
     public void tearDown() {
         userRepository.delete(user1);
-        themeRepository.delete(theme1);
-        themeRepository.delete(theme2);
+        topicRepository.delete(topic1);
+        topicRepository.delete(topic2);
 
         subscriptionRepository.delete(subscription1);
         subscriptionRepository.delete(subscription2);
@@ -95,14 +95,14 @@ public class SubscriptionRepositoryTests {
         Optional<List<Integer>> result = subscriptionRepository.findAllThemeIdsSubscribedByUser(user1.getId());
 
         assertTrue(result.isPresent());
-        assertTrue(result.get().contains(theme1.getId()));
-        assertTrue(result.get().contains(theme2.getId()));
+        assertTrue(result.get().contains(topic1.getId()));
+        assertTrue(result.get().contains(topic2.getId()));
     }
 
     @Test
     public void testFindUniqueSubscriptionForThemeByUser() {
         Integer userId = user1.getId();
-        Integer themeId = theme2.getId();
+        Integer themeId = topic2.getId();
 
         Optional<Subscription> result = subscriptionRepository.findUniqueSubscriptionForThemeByUser(themeId, userId);
 
@@ -113,7 +113,7 @@ public class SubscriptionRepositoryTests {
     @Test
     public void testDeleteByThemeIdAndUserId() {
         Integer userId = user1.getId();
-        Integer themeId = theme2.getId();
+        Integer themeId = topic2.getId();
 
         subscriptionRepository.deleteByThemeIdAndUserId(themeId, userId);
 
