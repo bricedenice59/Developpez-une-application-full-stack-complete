@@ -22,7 +22,7 @@ export class PostsService {
     return this.httpClient.get<ICommentResponse[]>(`${this.pathService}/${id}/comments`);
   }
 
-  public savePost(topicId: number, postRequest: IPostRequest): Observable<void> {
+  public savePost(topicId: string, postRequest: IPostRequest): Observable<void> {
     return this.httpClient.post<void>(`${this.pathService}?topicId=${topicId}`, postRequest);
   }
 

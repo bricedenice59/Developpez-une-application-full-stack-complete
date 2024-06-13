@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {TopicsService} from "../../../services/topics/topics.service";
 import {ITopicResponse} from "../../../services/topics/interfaces/topic.response.interface";
 import {Subscription} from "rxjs";
+import {PostsService} from "../../../services/posts/posts.service";
+import {IPostRequest} from "../../../services/posts/interfaces/post.request.interface";
 
 @Component({
   selector: 'app-post-create',
@@ -30,7 +32,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private fb: FormBuilder,
-              private topicService: TopicsService) {
+              private topicService: TopicsService,
+              private postsService: PostsService) {
     this.form = this.fb.group({
       topicId: [
         '',
@@ -42,14 +45,14 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.minLength(255)
+          Validators.maxLength(255)
         ]
       ],
       content: [
         '',
         [
           Validators.required,
-          Validators.minLength(2000)
+          Validators.maxLength(2000)
         ]
       ]
     });
@@ -68,6 +71,19 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    const postRequest : IPostRequest = {
+      title: this.form.controls['title'].value!,
+      description: this.form.controls['content'].value!,
+    };
+    const saveNewPostSubscription$ = this.postsService.savePost(this.form.controls['topicId'].value!, postRequest).subscribe({
+      next: (_: void) => {
+        saveNewPostSubscription$.unsubscribe();
 
+        this.router.navigate(['/posts']);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 }
