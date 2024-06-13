@@ -26,11 +26,11 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 })
 export class ToolbarComponent {
   isToggled = false;
-  isMobile = window.innerWidth < 600;
+  isMobile = window.innerWidth < 768;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.isMobile = window.innerWidth < 600;
+    this.isMobile = window.innerWidth < 768;
   }
 
   toggleToolbar() {

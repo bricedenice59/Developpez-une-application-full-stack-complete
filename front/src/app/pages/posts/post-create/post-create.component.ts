@@ -3,7 +3,7 @@ import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {TopicsService} from "../../../services/topics/topics.service";
 import {ITopicResponse} from "../../../services/topics/interfaces/topic.response.interface";
 import {Subscription} from "rxjs";
@@ -18,7 +18,8 @@ import {IPostRequest} from "../../../services/posts/interfaces/post.request.inte
     MatInput,
     NgIf,
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './post-create.component.html',
   styleUrl: './post-create.component.scss'
