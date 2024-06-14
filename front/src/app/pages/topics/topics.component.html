@@ -1,0 +1,17 @@
+<div class="wrapper-content">
+  @if(!this.hasData){
+    <p>No topic available...</p>
+  }
+  @else{
+    <div class="topic-container">
+      @for (topic of this.topicsArray; track topic.id) {
+        <div class="column">
+          <app-topics-container [id]="topic.id"
+                              [title]="topic.title"
+                              [description]="topic.description">
+          </app-topics-container>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -15,4 +15,12 @@ export class TopicsService {
   public getAll(): Observable<ITopicResponse[]> {
     return this.httpClient.get<ITopicResponse[]>(this.pathService);
   }
+
+  public subscribeToTopic(topicId: number): Observable<void> {
+    return this.httpClient.post<void>(`${this.pathService}/subscribe?topicId=${topicId}&subscribe=true`, null);
+  }
+
+  public unSubscribeToTopic(topicId: number): Observable<void> {
+    return this.httpClient.post<void>(`${this.pathService}/subscribe?topicId=${topicId}&subscribe=false`, null);
+  }
 }

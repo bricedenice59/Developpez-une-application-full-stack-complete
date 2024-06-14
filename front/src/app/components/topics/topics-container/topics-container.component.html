@@ -1,0 +1,9 @@
+<div class="topic-box-container">
+  <h3>{{title}}</h3>
+  <div class="scrollable-paragraph">
+    <p>{{description}}</p>
+  </div>
+  <div class="button-container">
+    <button mat-flat-button color="primary" type="submit" (click)="subscribe()" [disabled]="isAlreadySubscribed">Subscribe</button>
+  </div>
+</div>

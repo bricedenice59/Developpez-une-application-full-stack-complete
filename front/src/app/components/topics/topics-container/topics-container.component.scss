@@ -1,0 +1,22 @@
+.topic-box-container {
+  background-color: #EAE7F8;
+  border-radius: 5px;
+  width: 360px;
+  border: 1px solid #EAE7F8;
+  padding: 10px;
+}
+.topic-box-container h3 {
+  color: #333;
+  text-align: left;
+  font-weight: bold;
+}
+.scrollable-paragraph {
+  height: 75px;
+  overflow-y: auto; /* This will add a vertical scrollbar if the content overflows */
+  text-align: left;
+}
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
