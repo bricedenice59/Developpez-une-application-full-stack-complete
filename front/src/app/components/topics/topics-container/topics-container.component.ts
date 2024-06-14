@@ -15,9 +15,9 @@ export class TopicsContainerComponent {
   @Input() id! : number;
   @Input() title : string = '';
   @Input() description : string = '';
+  @Input() isAlreadySubscribed :  boolean = false;
 
   private readonly topicsService = inject(TopicsService);
-  public isAlreadySubscribed: boolean = false;
 
   public subscribe() : void {
     const topicsSubscription$ = this.topicsService.subscribeToTopic(this.id).subscribe({

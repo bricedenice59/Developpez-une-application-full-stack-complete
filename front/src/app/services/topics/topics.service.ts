@@ -16,6 +16,10 @@ export class TopicsService {
     return this.httpClient.get<ITopicResponse[]>(this.pathService);
   }
 
+  public getSubscribed(): Observable<ITopicResponse[]> {
+    return this.httpClient.get<ITopicResponse[]>(`${this.pathService}/subscribed`);
+  }
+
   public subscribeToTopic(topicId: number): Observable<void> {
     return this.httpClient.post<void>(`${this.pathService}/subscribe?topicId=${topicId}&subscribe=true`, null);
   }

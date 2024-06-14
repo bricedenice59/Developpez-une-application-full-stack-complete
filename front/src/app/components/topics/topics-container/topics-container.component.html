@@ -4,6 +4,12 @@
     <p>{{description}}</p>
   </div>
   <div class="button-container">
-    <button mat-flat-button color="primary" type="submit" (click)="subscribe()" [disabled]="isAlreadySubscribed">Subscribe</button>
+    <button mat-flat-button color="primary" type="submit" (click)="subscribe()" [disabled]="isAlreadySubscribed">
+      @if(isAlreadySubscribed){
+        Subscribed
+      } @else {
+        Subscribe
+      }
+    </button>
   </div>
 </div>
