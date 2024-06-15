@@ -73,27 +73,36 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "find by id",
+					"name": "get details",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/user/1",
+							"raw": "{{host_url}}:{{host_port}}/api/user",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"user",
-								"1"
+								"user"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "update details by id",
+					"name": "update details",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -109,7 +118,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"brice\",\n    \"email\": \"bg2@bg.com\"\n}",
+							"raw": "{\n    \"name\": \"\",\n    \"email\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -117,15 +126,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host_url}}:{{host_port}}/api/user/8",
+							"raw": "{{host_url}}:{{host_port}}/api/user",
 							"host": [
 								"{{host_url}}"
 							],
 							"port": "{{host_port}}",
 							"path": [
 								"api",
-								"user",
-								"8"
+								"user"
 							]
 						}
 					},

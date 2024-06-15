@@ -85,10 +85,10 @@ public class UserServiceTests {
 
         User mockUser = new User();
         mockUser.setId(userId);
-        when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
+
         when(userRepository.findByEmail(newEmail)).thenReturn(Optional.empty());
 
-        userService.updateFromRequest(userId, true, detailsRequest);
+        userService.updateFromRequest(mockUser, true, detailsRequest);
 
         verify(userRepository).save(mockUser);
         assertEquals(newEmail, mockUser.getEmail());
@@ -98,7 +98,6 @@ public class UserServiceTests {
     @Test
     @DisplayName("Test retrieve a post with a non existent id should fail and throw a PostNotFoundException")
     public void UserServiceTests_updateFromRequest_WithEmailMatchingAnotherUser_ShouldThrowAUserAlreadyExistException() {
-        int userId = 1;
         String newName = "New Name";
         String existingEmail = "existingemail@example.com";
         var detailsRequest = UpdateUserDetailsRequest.builder()
@@ -109,6 +108,6 @@ public class UserServiceTests {
         existingUser.setEmail(existingEmail);
         when(userRepository.findByEmail(existingEmail)).thenReturn(Optional.of(existingUser));
 
-        assertThrows(UserAlreadyExistException.class, () -> userService.updateFromRequest(userId, true, detailsRequest));
+        assertThrows(UserAlreadyExistException.class, () -> userService.updateFromRequest(existingUser, true, detailsRequest));
     }
 }

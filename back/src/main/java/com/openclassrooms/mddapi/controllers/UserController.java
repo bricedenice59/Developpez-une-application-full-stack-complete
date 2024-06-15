@@ -2,7 +2,6 @@ package com.openclassrooms.mddapi.controllers;
 
 
 import com.openclassrooms.mddapi.payloads.requests.UpdateUserDetailsRequest;
-import com.openclassrooms.mddapi.payloads.responses.ApiErrorResponse;
 import com.openclassrooms.mddapi.payloads.responses.SimpleOutputMessageResponse;
 import com.openclassrooms.mddapi.payloads.responses.UserResponse;
 import com.openclassrooms.mddapi.security.services.JwtService;
@@ -13,12 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 @RestController
 @RequestMapping("user")
 public class UserController {
 
+    final String bearerTokenString = "Bearer ";
     private final UserService userService;
     private final JwtService jwtService;
 
@@ -28,11 +26,14 @@ public class UserController {
     }
 
     /**
-     * Get a user details by id
+     * Get a user details
      */
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserResponse> getUserDetails(@PathVariable("id") final Integer id) {
-        var user = userService.getById(id);
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String authorizationHeader) {
+        var jwtToken = authorizationHeader.substring(bearerTokenString.length());
+        var userFromToken = jwtService.extractUserName(jwtToken);
+
+        var user = userService.getByEmail(userFromToken);
 
         var userResponse = UserResponse.builder()
                 .name(user.getName())
@@ -42,24 +43,18 @@ public class UserController {
     }
 
     /**
-     * Updates a user profile details by id
+     * Updates a user profile details
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateDetails(@PathVariable("id") Integer id,
-                                           @Valid @RequestBody UpdateUserDetailsRequest userDetailsRequest,
+    @PutMapping("")
+    public ResponseEntity<?> updateDetails(@Valid @RequestBody UpdateUserDetailsRequest userDetailsRequest,
                                            @RequestHeader("Authorization") String authorizationHeader) {
         final String bearerTokenString = "Bearer ";
         var jwtToken = authorizationHeader.substring(bearerTokenString.length());
 
         var userFromToken = jwtService.extractUserName(jwtToken);
-        var userFromDatabase = userService.getById(id);
+        var user = userService.getByEmail(userFromToken);
 
-        if(!userFromToken.equals(userFromDatabase.getEmail())) {
-            var errorApiResponse = new ApiErrorResponse(HttpStatus.UNAUTHORIZED.value(), "You are not allowed to update details for this user !", LocalDateTime.now());
-            return new ResponseEntity<>(errorApiResponse, HttpStatus.UNAUTHORIZED) ;
-        }
-
-        userService.updateFromRequest(id, !userFromDatabase.getEmail().equals(userDetailsRequest.getEmail()), userDetailsRequest);
+        userService.updateFromRequest(user, !user.getEmail().equals(userDetailsRequest.getEmail()), userDetailsRequest);
 
         return new ResponseEntity<>(new SimpleOutputMessageResponse("User details have been updated successfully !"), HttpStatus.OK);
     }

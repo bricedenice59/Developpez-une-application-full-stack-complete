@@ -30,7 +30,7 @@ public class UserService {
         return user.orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
-    public void updateFromRequest(int id, boolean updateEmail, UpdateUserDetailsRequest userDetailsRequest) {
+    public void updateFromRequest(User user, boolean updateEmail, UpdateUserDetailsRequest userDetailsRequest) {
         if(updateEmail) {
             //does it exist a user that has the same email?
             var userInDBfromEmail = userRepository.findByEmail(userDetailsRequest.getEmail());
@@ -38,7 +38,6 @@ public class UserService {
                 throw new UserAlreadyExistException(MessageFormat.format("A user already exist with this email {0}", userDetailsRequest.getEmail()));
             }
         }
-        var user = getById(id);
         if(updateEmail)
             user.setEmail(userDetailsRequest.getEmail());
 
