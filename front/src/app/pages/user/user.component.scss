@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.form-class {
+  width: 400px;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+/* If you want to add spacing only between the form controls and not the submit button, you can use the :not() pseudo-class */
+.form-group:not(.submit-button) {
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+.form-group input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.submit-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}

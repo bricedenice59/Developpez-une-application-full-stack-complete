@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>User profile</h2>
+  <form [formGroup]="form" (ngSubmit)="updateUserProfile()">
+    <div class="form-class">
+      <div class="form-group">
+        <input matInput formControlName="name" placeholder="New Username">
+        <p *ngIf="nameValidationMessage" class="error">
+          {{ nameValidationMessage}}
+        </p>
+      </div>
+      <div class="form-group">
+        <input matInput formControlName="email" placeholder="New Email address">
+        <p *ngIf="emailValidationMessage" class="error">
+          {{ emailValidationMessage }}
+        </p>
+      </div>
+      <div class="submit-button">
+        <p *ngIf="onError" class="error">An error occurred</p>
+        <button mat-flat-button color="primary" type="submit" [disabled]="isUpdateButtonDisabled()">Update user details</button>
+      </div>
+    </div>
+  </form>
+</div>
