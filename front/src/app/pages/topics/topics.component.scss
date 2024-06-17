@@ -4,17 +4,7 @@
   align-items: center; /* Center the content horizontally */
   width: 100%;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20px;
-  width: 100%;
-  max-width: 800px;
-}
-
-.post-container {
+.topic-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start; /* Align items to the start of the main axis */
@@ -22,35 +12,10 @@
   padding-top: 20px;
   width: 100%; /* Ensure the container takes full width */
 }
-
 .column {
   padding-top: 10px;
   padding-bottom: 10px;
   cursor: pointer;
   width: 50%; /* Set width for two columns layout */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-.sort-content {
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .post-container {
-    align-items: center;
-  }
-
-  .column {
-    width: 100%;
-  }
-
-  .wrapper-content {
-    top: 50px;
-    position: relative;
-  }
-
-  .header {
-    flex-direction: column;
-    gap: 20px;
-  }
 }

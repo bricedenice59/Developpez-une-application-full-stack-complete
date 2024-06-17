@@ -3,7 +3,7 @@ import {PostsService} from "../../../services/posts/posts.service";
 import {IPostResponse} from "../../../services/posts/interfaces/post.response.interface";
 import {Subscription} from "rxjs";
 import {ICommentResponse} from "../../../services/posts/interfaces/comment.response.interface";
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {PostContainerComponent} from "../../../components/posts/post-container/post-container.component";
 import {FormsModule} from "@angular/forms";
 
@@ -12,7 +12,8 @@ import {FormsModule} from "@angular/forms";
   standalone: true,
   imports: [
     PostContainerComponent,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.scss'

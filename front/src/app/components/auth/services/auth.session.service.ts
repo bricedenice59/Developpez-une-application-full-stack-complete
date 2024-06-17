@@ -1,7 +1,8 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
 import {AuthStorageService} from "../../../core/auth.storage.service";
+import {Router} from "@angular/router";
 
 const defaultAuthenticationState: SessionInformation = {
   isAuthenticated: false,
@@ -16,7 +17,8 @@ export class SessionService implements OnDestroy {
   private authenticationSubject = new BehaviorSubject<SessionInformation>(defaultAuthenticationState);
   private auth$ = this.authenticationSubject.asObservable();
 
-  constructor(private authStorageService: AuthStorageService) {
+  constructor(private authStorageService: AuthStorageService,
+              private router: Router) {
     this.auth$.subscribe((sessionInfo: SessionInformation) => {
       if (sessionInfo.isAuthenticated) {
         this.authStorageService.set(sessionInfo.token!);
@@ -37,5 +39,6 @@ export class SessionService implements OnDestroy {
   public logOut(): void {
     this.authenticationSubject.next(defaultAuthenticationState);
     this.authStorageService.delete();
+    this.router.navigate(['/home']);
   }
 }

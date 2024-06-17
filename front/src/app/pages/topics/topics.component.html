@@ -1,0 +1,22 @@
+<div class="wrapper-content">
+  @if(this.hasError){
+    <p class="error">An error occurred when trying to retrieve topics...</p>
+  } @else if (!this.hasData){
+    <p >No topic available...</p>
+  }
+  @else{
+    <div class="topic-container">
+      @for (topic of this.topicsArray; track topic.id) {
+        <div class="column">
+          <app-topics-container [id]="topic.id"
+                              [title]="topic.title"
+                              [description]="topic.description"
+                              [isAlreadySubscribed]="topic.isSubscribed"
+                              [isSubscribeCase] = true
+                              (topicContainerEvent)="subscribeTopic($event)">
+          </app-topics-container>
+        </div>
+      }
+    </div>
+  }
+</div>

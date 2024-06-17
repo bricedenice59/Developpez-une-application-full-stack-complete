@@ -7,6 +7,7 @@ import {Router, RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
 import {DateTimeFormatter} from "../../../core/utils/date.formatter";
+import {CollectionSort} from "../../../core/utils/collection.sort";
 
 @Component({
   selector: 'app-posts-list',
@@ -33,7 +34,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
     this.postsSubscription$?.unsubscribe();
   }
 
-  ngOnInit() {
+  ngOnInit() : void {
     this.postsSubscription$ = this.postsService.getAll().pipe(
       map((values: IPostResponse[]) => {
         return values.map(post => {
@@ -43,32 +44,24 @@ export class PostsListComponent implements OnInit, OnDestroy {
     ).subscribe(
       (values: IPostResponse[]) => {
         this.hasData = values.length != 0;
-        this.postsArray = this.sortPostsDescending(values);
+        this.postsArray = CollectionSort.sortByCreationDateDescending(values);
       }
     );
   }
 
-  sortPostsAscending(posts: IPostResponse[]): IPostResponse[] {
-    return posts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-  }
-
-  sortPostsDescending(posts: IPostResponse[]): IPostResponse[] {
-    return posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  }
-
-  sortPosts() {
+  public sortPosts(): void {
     this.isAscending = !this.isAscending;
     if(this.isAscending)
-      this.postsArray = this.sortPostsDescending(this.postsArray);
+      this.postsArray = CollectionSort.sortByCreationDateDescending(this.postsArray);
     else
-      this.postsArray = this.sortPostsAscending(this.postsArray);
+      this.postsArray = CollectionSort.sortByCreationDateAscending(this.postsArray);
   }
 
-  createPost() {
-
+  public createPost(): void {
+    this.router.navigate(['posts/post-create']);
   }
 
-  navigateWithData(post: IPostResponse) {
+  public navigateWithData(post: IPostResponse) : void {
     this.router.navigate(['posts/post-detail'], { state: { data: post } });
   }
 }

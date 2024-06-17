@@ -6,7 +6,6 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {Router} from "@angular/router";
 import {RegisterRequest} from "../interfaces/registerRequest.interface";
 import {AuthService} from "../services/auth.service";
-import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
 import {HeaderComponent} from "../header/header.component";
 
 @Component({
@@ -35,7 +34,7 @@ export class SignupComponent {
         '',
         [
           Validators.required,
-          Validators.max(255)
+          Validators.maxLength(255)
         ]
       ],
       email: [

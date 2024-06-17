@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import {IPostResponse} from "./interfaces/post.response.interface";
 import {ICommentResponse} from "./interfaces/comment.response.interface";
+import {IPostRequest} from "./interfaces/post.request.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class PostsService {
 
   public getAllComments(id: number): Observable<ICommentResponse[]> {
     return this.httpClient.get<ICommentResponse[]>(`${this.pathService}/${id}/comments`);
+  }
+
+  public savePost(topicId: string, postRequest: IPostRequest): Observable<void> {
+    return this.httpClient.post<void>(`${this.pathService}?topicId=${topicId}`, postRequest);
   }
 
   public saveComment(id: number, commentStr: string): Observable<void> {
