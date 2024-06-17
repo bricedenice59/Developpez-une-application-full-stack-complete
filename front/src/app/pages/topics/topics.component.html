@@ -11,7 +11,9 @@
           <app-topics-container [id]="topic.id"
                               [title]="topic.title"
                               [description]="topic.description"
-                              [isAlreadySubscribed]="topic.isSubscribed">
+                              [isAlreadySubscribed]="topic.isSubscribed"
+                              [isSubscribeCase] = true
+                              (topicContainerEvent)="subscribeTopic($event)">
           </app-topics-container>
         </div>
       }

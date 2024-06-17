@@ -12,6 +12,7 @@ import {CollectionSort} from "../../core/utils/collection.sort";
 import {MatButton} from "@angular/material/button";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
 import {ITopicData} from "../../services/topics/interfaces/topic.data.interface";
+import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
 
 @Component({
   selector: 'app-topics',
@@ -53,6 +54,18 @@ export class TopicsComponent implements OnInit, OnDestroy {
     ).subscribe(topics => {
       this.topicsArray = CollectionSort.sortByCreationDateDescending(topics);
       this.hasData = this.topicsArray.length > 0;
+    });
+  }
+
+  public subscribeTopic(topicData: { emitterParams: ITopicsContainerEmitter }) : void {
+    const topicsSubscription$ = this.topicsService.subscribeToTopic(topicData.emitterParams.id).subscribe({
+      next: (_: void) => {
+        topicsSubscription$.unsubscribe();
+        topicData.emitterParams.onFnSuccessCallback(true);
+      },
+      error: err => {
+        console.log(err);
+      }
     });
   }
 

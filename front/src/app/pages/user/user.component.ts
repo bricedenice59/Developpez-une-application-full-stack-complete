@@ -9,6 +9,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {UserService} from "../../services/User/user.service";
 import {IUserDetails} from "../../services/User/interfaces/user.interface";
 import {SessionService} from "../../components/auth/services/auth.session.service";
+import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
+import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
 
 @Component({
   selector: 'app-user',
@@ -18,7 +20,8 @@ import {SessionService} from "../../components/auth/services/auth.session.servic
     MatInput,
     NgForOf,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TopicsContainerComponent
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -35,8 +38,10 @@ export class UserComponent implements OnInit {
   public emailValidationMessage : string = "";
   public userSubscribedTopicsArray: ITopicResponse[] = [];
   public currentUserDetails: IUserDetails | undefined;
-  public onErrorFetchingUserDetails = false;
-  public onError = false;
+  public onErrorFetchingUserDetails: boolean = false;
+  public onErrorFetchingSubscriptions: boolean = false;
+  public onError: boolean = false;
+  public hasSubscriptions: boolean = false;
 
   constructor(private router: Router,
               private fb: FormBuilder) {
@@ -68,11 +73,13 @@ export class UserComponent implements OnInit {
   public getUserAllSubscription() : void {
       const userTopicsGetAllSubscription$ = this.topicsService.getSubscribed().subscribe({
       next: (values: ITopicResponse[]) => {
+        this.hasSubscriptions = values.length > 0;
         this.userSubscribedTopicsArray = values;
         userTopicsGetAllSubscription$.unsubscribe();
       },
       error: err => {
         console.log(err);
+        this.onErrorFetchingSubscriptions = true;
       }
     });
   }
@@ -155,10 +162,15 @@ export class UserComponent implements OnInit {
     this.sessionService.logOut();
   }
 
-  public unsubscribeFromTopic() : void {
-     const userTopicsUnSubscribeSubscription$= this.topicsService.unSubscribeToTopic(1).subscribe({
+  public unsubscribeFromTopic(topicData: { emitterParams: ITopicsContainerEmitter }) : void {
+     const userTopicsUnSubscribeSubscription$= this.topicsService.unSubscribeToTopic(topicData.emitterParams.id).subscribe({
       next: (_: void) => {
         userTopicsUnSubscribeSubscription$.unsubscribe();
+        const index = this.userSubscribedTopicsArray.findIndex(subscription => subscription.id === topicData.emitterParams.id);
+        if (index !== -1) {
+          this.userSubscribedTopicsArray.splice(index, 1);
+          this.hasSubscriptions = this.userSubscribedTopicsArray.length > 0;
+        }
       },
       error: err => {
         console.log(err);

@@ -20,4 +20,27 @@
       </div>
     </div>
   </form>
+  <h2 class="logout-label" (click)="logout()">Logout</h2>
+  <div class="horizontal-line"></div>
+  <h1 class="subscription-label">Subscriptions</h1>
+  @if(this.onErrorFetchingSubscriptions){
+    <p class="error">An error occurred when trying to retrieve subscriptions...</p>
+  } @else if (!this.hasSubscriptions){
+    <p >No subscription available...</p>
+  }
+  @else{
+    <div class="topic-container">
+      @for (topic of this.userSubscribedTopicsArray; track topic.id) {
+        <div class="column">
+          <app-topics-container [id]="topic.id"
+                                [title]="topic.title"
+                                [description]="topic.description"
+                                [isAlreadySubscribed]="false"
+                                [isSubscribeCase] = false
+                                (topicContainerEvent)="unsubscribeFromTopic($event)">
+          </app-topics-container>
+        </div>
+      }
+    </div>
+  }
 </div>
