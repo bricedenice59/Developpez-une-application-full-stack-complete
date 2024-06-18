@@ -9,7 +9,7 @@
 }
 
 .form-class {
-  width: 400px;
+  width: 100%;
 }
 
 .form-group {
@@ -17,7 +17,7 @@
 }
 
 .form-group input {
-  width: 100%;
+  width: 250px;
   height: 30px;
   border: 1px solid black;
   border-radius: 4px;
@@ -35,12 +35,6 @@
   border-bottom: 1px solid black;
 }
 
-.logout-label {
-  color: red;
-  margin-top: 15px;
-  cursor: pointer;
-}
-
 .subscription-label {
   margin-top: 15px;
 }
@@ -54,8 +48,26 @@
 .column {
   padding-top: 10px;
   padding-bottom: 10px;
-  cursor: pointer;
   width: 50%; /* Set width for two columns layout */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.logout{
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.logout a {
+  color: red;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.logout a:hover {
+  font-weight: bold;
+  color: red;
+  text-decoration: underline;
 }
 

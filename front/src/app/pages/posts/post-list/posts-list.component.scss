@@ -21,12 +21,13 @@
   max-width: 800px;
   padding-top: 20px;
   width: 100%; /* Ensure the container takes full width */
+  overflow-y: auto;
+  max-height: calc(100vh - 160px);
 }
 
 .column {
   padding-top: 10px;
   padding-bottom: 10px;
-  cursor: pointer;
   width: 50%; /* Set width for two columns layout */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }

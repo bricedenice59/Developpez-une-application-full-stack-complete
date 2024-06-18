@@ -40,6 +40,7 @@
   text-align: left;
   height: 400px;
   max-height: 600px;
+  padding-top: 20px;
 }
 .comment-container {
   display: flex;
@@ -129,6 +130,11 @@
   text-decoration: none;
   color: inherit;
   padding-left: 40px;
+}
+
+.horizontal-line {
+  width: 100%;
+  border-bottom: 1px solid black;
 }
 
 
