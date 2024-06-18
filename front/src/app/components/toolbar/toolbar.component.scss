@@ -7,7 +7,6 @@
   border-bottom: 1px solid black;
   background-color: white;
   width: 100%;
-  z-index: 1000;
 }
 
 .logo {
@@ -80,6 +79,7 @@ a img:hover {
     height: 100%;
     border: 1px solid black;
     padding: 0;
+    z-index: 1000;
   }
 
   .menu-container {
@@ -100,8 +100,8 @@ a img:hover {
 
   .logo-top-left {
     display: block;
-    height: 80px;
-    width: 100px;
+    height: 50px;
+    width: 70px;
     margin-left: 30px;
   }
 

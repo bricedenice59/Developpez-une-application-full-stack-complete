@@ -27,10 +27,11 @@
   text-align: left;
 }
 
-@media (max-width: 768px) {
-  .post-box {
-    width: 300px
+@media screen and (max-width: 768px) {
+  .post-box-container {
+    width: 320px;
   }
+
   .scrollable-paragraph {
     height: 100px;
   }

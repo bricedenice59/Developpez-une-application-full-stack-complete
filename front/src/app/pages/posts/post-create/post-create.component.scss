@@ -55,3 +55,11 @@
   color: inherit;
   padding-left: 40px;
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .form-class {
+    width: 275px;
+  }
+}
+

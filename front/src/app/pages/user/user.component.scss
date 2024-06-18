@@ -1,11 +1,9 @@
-.container {
+.wrapper-content {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center horizontally */
-  justify-content: center;
-  padding-top: 40px;
-  max-width: 800px;
-  margin: 0 auto; /* This centers the container itself horizontally */
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+  width: 100%;
+  padding-top: 20px;
 }
 
 .form-class {
@@ -51,8 +49,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start; /* Align items to the start of the main axis */
+  max-width: 800px;
   width: 100%; /* Ensure the container takes full width */
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
 }
+
 .column {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -77,5 +79,33 @@
   font-weight: bold;
   color: red;
   text-decoration: underline;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .wrapper-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* At least as tall as the viewport */
+    width: 100%; /* Full width */
+    padding-top: 40px; /* Remove any padding */
+    margin: 0 auto; /* Center the container itself */
+  }
+
+  .topic-container {
+    width: 100%; /* Full width for mobile */
+    max-width: 100%; /* Override the max-width for mobile */
+    overflow-y: auto; /* Keep overflow as auto */
+  }
+
+  .column {
+    width: 100%; /* Full width for mobile */
+    margin: 0 auto; /* Center the column */
+    display: flex; /* Enable flexbox for column */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
 }
 

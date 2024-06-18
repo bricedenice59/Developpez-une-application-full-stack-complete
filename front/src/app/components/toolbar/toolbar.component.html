@@ -5,7 +5,7 @@
       <li><a [routerLink]="['/posts']" (click)="toggleToolbar()" routerLinkActive="active" ariaCurrentWhenActive="page">Posts</a></li>
       <li><a [routerLink]="['/topics']" (click)="toggleToolbar()" routerLinkActive="active" ariaCurrentWhenActive="page">Topics</a></li>
     </ul>
-    <a [routerLink]="['/user']">
+    <a [routerLink]="['/user']" (click)="toggleToolbar()">
       <img class="profile-icon" src="/assets/user-profile.jpg" alt="Profile">
     </a>
   </div>

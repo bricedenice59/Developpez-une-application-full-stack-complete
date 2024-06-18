@@ -38,20 +38,22 @@
 
 @media (max-width: 768px) {
   .post-container {
-    align-items: center;
+    width: 100%; /* Full width for mobile */
+    max-width: 100%; /* Override the max-width for mobile */
+    overflow-y: auto; /* Keep overflow as auto */
   }
 
   .column {
-    width: 100%;
-  }
-
-  .wrapper-content {
-    top: 50px;
-    position: relative;
+    width: 100%; /* Full width for mobile */
+    margin: 0 auto; /* Center the column */
+    display: flex; /* Enable flexbox for column */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
   }
 
   .header {
     flex-direction: column;
     gap: 20px;
+    padding-top: 40px;
   }
 }

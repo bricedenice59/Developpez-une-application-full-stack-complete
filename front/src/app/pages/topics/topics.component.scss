@@ -20,3 +20,33 @@
   width: 50%; /* Set width for two columns layout */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .wrapper-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* At least as tall as the viewport */
+    width: 100%; /* Full width */
+    padding: 0; /* Remove any padding */
+    margin: 0 auto; /* Center the container itself */
+  }
+
+  .topic-container {
+    width: 100%; /* Full width for mobile */
+    max-width: 100%; /* Override the max-width for mobile */
+    overflow-y: auto; /* Keep overflow as auto */
+  }
+
+  .column {
+    width: 100%; /* Full width for mobile */
+    margin: 0 auto; /* Center the column */
+    display: flex; /* Enable flexbox for column */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
+}
+
+
