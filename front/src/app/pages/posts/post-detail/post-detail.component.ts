@@ -56,6 +56,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.commentsSubscription$?.unsubscribe();
+    sessionStorage.removeItem('postData');
   }
 
   ngOnInit() {
