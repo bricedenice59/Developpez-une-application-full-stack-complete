@@ -4,13 +4,13 @@
     <div class="form-class">
       <div class="form-group">
         <input formControlName="name" placeholder="New Username">
-        <p *ngIf="nameValidationMessage" class="error">
+        <p *ngIf="nameValidationMessage" class="error-validation">
           {{ nameValidationMessage}}
         </p>
       </div>
       <div class="form-group">
         <input formControlName="email" placeholder="New Email address">
-        <p *ngIf="emailValidationMessage" class="error">
+        <p *ngIf="emailValidationMessage" class="error-validation">
           {{ emailValidationMessage }}
         </p>
       </div>

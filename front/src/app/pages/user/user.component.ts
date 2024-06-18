@@ -131,11 +131,13 @@ export class UserComponent implements OnInit {
     // Check if the name is the same as the current one
     if (name.value && name.value.trim().toLowerCase() === this.currentUserDetails!.name.toLowerCase()) {
       this.nameValidationMessage = 'Username is the same as the current one, please type a different username or leave it blank to not update it';
+      return true;
     }
 
     // Check if the email is the same as the current one
     if (email.value && email.value.trim().toLowerCase() === this.currentUserDetails!.email.toLowerCase()) {
       this.emailValidationMessage = 'Email address is the same as the current one, please type a different email or leave it blank to not update it';
+      return true;
     }
 
     return !this.form.valid;
