@@ -79,8 +79,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     const saveCommentSubscription$ = this.postsService.saveComment(this.postData!.id, commentData.emitterParams.comment).subscribe({
       next: (_: void) => {
         const newComment: ICommentResponse = {
-          id: 0,
-          username: "test",
+          id: 0, //we are not using it later so id can be any number
+          username: "me",
           text: commentData.emitterParams.comment
         };
 
