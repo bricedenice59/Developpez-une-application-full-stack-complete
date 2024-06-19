@@ -50,7 +50,6 @@
 .comments-section {
   width: 100%; /* Match the width of the post-detail-box */
   text-align: left; /* Align text to the left */
-  margin-bottom: 20px; /* Space between sections */
   padding-top: 30px;
   height: 500px;
   max-height: 500px;
@@ -60,7 +59,6 @@
 .publish-comment {
   margin-top: auto;
   width: 600px;
-  padding-left: 20px;
 }
 
 @media (max-width: 768px) {
@@ -79,6 +77,15 @@
   }
   .scrollable-post-description-paragraph {
     width: 100%;
+  }
+  .comments-section {
+    padding-left: 20px;
+    height: 350px;
+    max-height: 350px;
+  }
+  .publish-comment {
+    width: 320px;
+    padding-left: 20px;
   }
 }
 

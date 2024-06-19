@@ -37,3 +37,14 @@
 .comment-text-container p {
   margin: 10px;
 }
+
+@media (max-width: 768px) {
+  .comment-text-container{
+    margin-left: 5px;
+    width: 250px;
+  }
+  .comment-container {
+    padding-left: 20px;
+  }
+
+}
