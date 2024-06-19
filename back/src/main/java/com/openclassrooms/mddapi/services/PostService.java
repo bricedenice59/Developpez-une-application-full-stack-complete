@@ -36,6 +36,14 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> getFeed(final String userEmail) {
+        var user = userRepository.findByEmail(userEmail);
+        if(user.isEmpty()) {
+            throw new UserNotFoundException("User not found");
+        }
+        return postRepository.findPostsBySubscriptionUserId(user.get().getId());
+    }
+
     public Post getById(final Integer id) {
         var post = postRepository.findById(id);
         return post.orElseThrow(() -> new PostNotFoundException("Post not found"));

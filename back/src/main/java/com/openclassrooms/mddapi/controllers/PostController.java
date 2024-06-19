@@ -52,6 +52,24 @@ public class PostController {
     }
 
     /**
+     * Retrieve all posts for all topics subscribed (user feed)
+     */
+    @GetMapping(value = "/feed", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllPostBySubscribedTopics(@RequestHeader("Authorization") String authorizationHeader) {
+        var jwtToken = authorizationHeader.substring(bearerTokenString.length());
+        var userFromToken = jwtService.extractUserName(jwtToken);
+
+        var posts = postService.getFeed(userFromToken);
+        var postResponses = new ArrayList<PostResponse>();
+        for (var post : posts) {
+            var postResponse = ToPostResponse(post);
+            postResponses.add(postResponse);
+        }
+
+        return new ResponseEntity<>(postResponses, HttpStatus.OK);
+    }
+
+    /**
      * Retrieve a post by id
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
