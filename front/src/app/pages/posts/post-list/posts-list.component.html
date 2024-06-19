@@ -1,26 +1,26 @@
 <div class="wrapper-content">
-  <div class="header">
-    <button mat-flat-button color="primary" type="submit" (click)="createPost()">Create post</button>
-
-    <span class="sort-content" [ngClass]="{'up': isAscending, 'down': !isAscending}" (click)="sortPosts()" [class.disabled]="!this.hasData">
-      Sort by date {{ isAscending ? '▲' : '▼' }}
-    </span>
-  </div>
-  @if(!this.hasData){
+  @if(this.hasError){
+    <p class="error">An error occurred when trying to retrieve posts...</p>
+  } @else if (!this.hasData){
     <p>No post available...</p>
-  }
-  @else{
+  } @else {
+    <div class="header">
+      <button mat-flat-button color="primary" type="submit" (click)="createPost()">Create post</button>
+      <span class="sort-content" [ngClass]="{'up': isAscending, 'down': !isAscending}" (click)="sortPosts()" [class.disabled]="!this.hasData">
+          Sort by date {{ isAscending ? '▲' : '▼' }}
+      </span>
+    </div>
     <div class="post-container">
-      @for (post of this.postsArray; track post.id) {
-        <div class="column" (click)="navigateWithData(post)">
-          <app-post-container [id]="post.id"
-                              [title]="post.title"
-                              [description]="post.description"
-                              [author]="post.author"
-                              [date]="post.createdAt">
-          </app-post-container>
-        </div>
-      }
+        @for (post of this.postsArray; track post.id) {
+          <div class="column" (click)="navigateWithData(post)">
+              <app-post-container [id]="post.id"
+                                  [title]="post.title"
+                                  [description]="post.description"
+                                  [author]="post.author"
+                                  [date]="post.createdAt">
+              </app-post-container>
+          </div>
+          }
     </div>
   }
 </div>

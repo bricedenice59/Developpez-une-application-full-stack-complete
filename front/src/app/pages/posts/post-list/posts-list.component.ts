@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {PostsService} from "../../../services/posts/posts.service";
 import {IPostResponse} from "../../../services/posts/interfaces/post.response.interface";
-import {map, Subscription} from 'rxjs';
+import {catchError, map, of, Subscription} from 'rxjs';
 import {PostContainerComponent} from "../../../components/posts/post-container/post-container.component";
 import {Router, RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
@@ -27,6 +27,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   public postsArray: IPostResponse[] = [];
   public postsSubscription$: Subscription | undefined;
+  public hasError: boolean = false;
   public hasData: boolean = false;
   public isAscending: boolean = true;
 
@@ -40,6 +41,11 @@ export class PostsListComponent implements OnInit, OnDestroy {
         return values.map(post => {
           return {...post, createdAt: DateTimeFormatter.Format(new Date(post.createdAt))};
         });
+      }),
+      catchError(error => {
+        this.hasError = true;
+        console.error('An error occurred:', error);
+        return of([]);
       })
     ).subscribe(
       (values: IPostResponse[]) => {
