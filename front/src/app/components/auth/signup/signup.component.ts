@@ -24,7 +24,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class SignupComponent {
   public onError = false;
-
+  public isSigningUp = false;
   public form: FormGroup<{ name: FormControl<string | null>; email: FormControl<string | null>; password: FormControl<string | null>; }>
 
   constructor(private router: Router,
@@ -57,15 +57,26 @@ export class SignupComponent {
   }
 
   public submit(): void {
+    if(this.isSigningUp) {
+      return;
+    }
+
+    this.isSigningUp = true;
+
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
       next: (_: void) => {
         this.snackBar.open("Account successfully created, you will be redirected to the login page.", "Close", { duration: 2000 });
         setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2_000);
+          this.router.navigate(['/login']).then(() => {
+            this.isSigningUp = false;
+          });
+        }, 2000);
       },
-      error: _ => this.onError = true
+      error: _ => {
+        this.onError = true;
+        this.isSigningUp = false;
+      }
     })
   }
 }

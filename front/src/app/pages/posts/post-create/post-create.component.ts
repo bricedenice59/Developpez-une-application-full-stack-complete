@@ -29,6 +29,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   public topicsArray: ITopicResponse[] = [];
   public topicsSubscription$: Subscription | undefined;
   public onError = false;
+  public isSubmittingComment = false;
 
   public form: FormGroup<{ topicId: FormControl<string | null>; title: FormControl<string | null>; content: FormControl<string | null>;}>
 
@@ -74,6 +75,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    if(this.isSubmittingComment){
+      return;
+    }
+    this.isSubmittingComment = true;
+
     const postRequest : IPostRequest = {
       title: this.form.controls['title'].value!,
       description: this.form.controls['content'].value!,
@@ -83,11 +89,14 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         saveNewPostSubscription$.unsubscribe();
         this.snackBar.open("Post successfully created!, you will be redirected to the post page.", "Close", { duration: 2000 });
         setTimeout(() => {
-          this.router.navigate(['/posts']);
-        }, 2_000);
+          this.router.navigate(['/posts']).then(() => {
+            this.isSubmittingComment = false;
+          });
+        }, 2000);
       },
       error: err => {
         console.log(err);
+        this.isSubmittingComment = false;
       }
     });
   }
