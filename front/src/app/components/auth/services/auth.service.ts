@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../interfaces/loginRequest.interface';
 import { RegisterRequest } from '../interfaces/registerRequest.interface';
