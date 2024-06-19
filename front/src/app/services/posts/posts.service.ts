@@ -14,8 +14,8 @@ export class PostsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAll(): Observable<IPostResponse[]> {
-    return this.httpClient.get<IPostResponse[]>(this.pathService);
+  public getFeed(): Observable<IPostResponse[]> {
+    return this.httpClient.get<IPostResponse[]>(`${this.pathService}/feed`);
   }
 
   public getAllComments(id: number): Observable<ICommentResponse[]> {

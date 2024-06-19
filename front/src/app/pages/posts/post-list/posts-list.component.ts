@@ -36,7 +36,7 @@ export class PostsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() : void {
-    this.postsSubscription$ = this.postsService.getAll().pipe(
+    this.postsSubscription$ = this.postsService.getFeed().pipe(
       map((values: IPostResponse[]) => {
         return values.map(post => {
           return {...post, createdAt: DateTimeFormatter.Format(new Date(post.createdAt))};
