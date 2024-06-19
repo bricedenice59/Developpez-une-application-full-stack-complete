@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {RegisterRequest} from "../interfaces/registerRequest.interface";
 import {AuthService} from "../services/auth.service";
 import {HeaderComponent} from "../header/header.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +29,8 @@ export class SignupComponent {
 
   constructor(private router: Router,
               private authService: AuthService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       name: [
         '',
@@ -58,7 +60,10 @@ export class SignupComponent {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe({
       next: (_: void) => {
-        this.router.navigate(['/login']);
+        this.snackBar.open("Account successfully created, you will be redirected to the login page.", "Close", { duration: 2000 });
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2_000);
       },
       error: _ => this.onError = true
     })

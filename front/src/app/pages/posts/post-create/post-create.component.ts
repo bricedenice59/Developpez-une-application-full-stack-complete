@@ -9,6 +9,7 @@ import {ITopicResponse} from "../../../services/topics/interfaces/topic.response
 import {Subscription} from "rxjs";
 import {PostsService} from "../../../services/posts/posts.service";
 import {IPostRequest} from "../../../services/posts/interfaces/post.request.interface";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-post-create',
@@ -34,7 +35,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private fb: FormBuilder,
               private topicService: TopicsService,
-              private postsService: PostsService) {
+              private postsService: PostsService,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       topicId: [
         '',
@@ -79,8 +81,10 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     const saveNewPostSubscription$ = this.postsService.savePost(this.form.controls['topicId'].value!, postRequest).subscribe({
       next: (_: void) => {
         saveNewPostSubscription$.unsubscribe();
-
-        this.router.navigate(['/posts']);
+        this.snackBar.open("Post successfully created!, you will be redirected to the post page.", "Close", { duration: 2000 });
+        setTimeout(() => {
+          this.router.navigate(['/posts']);
+        }, 2_000);
       },
       error: err => {
         console.log(err);

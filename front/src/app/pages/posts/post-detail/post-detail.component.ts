@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {CommentsContainerComponent} from "../../../components/posts/comments-container/comments-container.component";
 import {CommentSubmitterComponent} from "../../../components/posts/comment-submitter/comment-submitter.component";
 import {ICommentContentEmitter} from "../../../core/EventEmitters/comments-content.emitter";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-post-detail',
@@ -25,12 +26,14 @@ import {ICommentContentEmitter} from "../../../core/EventEmitters/comments-conte
 })
 export class PostDetailComponent implements OnInit, OnDestroy {
   private readonly postsService = inject(PostsService);
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
   public commentsArray: ICommentResponse[] = [];
   public commentsSubscription$: Subscription | undefined;
   public postData : IPostResponse | undefined;
   public hasError: boolean = false;
 
-  constructor(private router: Router) {
+  constructor() {
     this.loadPostData();
   }
 
@@ -83,6 +86,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
         this.commentsArray.unshift(newComment);
         commentData.emitterParams.onFnSuccessCallback(true);
+        this.snackBar.open("Comment successfully created!", "Close", { duration: 2000 });
 
         saveCommentSubscription$.unsubscribe();
       },
