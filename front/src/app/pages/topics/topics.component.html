@@ -1,4 +1,8 @@
 <div class="wrapper-content">
+  @if(this.isLoading){
+    <p>Fetching topics...</p>
+    <app-spin-loader></app-spin-loader>
+  }
   @if(this.hasError){
     <p class="error">An error occurred when trying to retrieve topics...</p>
   } @else if (!this.hasData){

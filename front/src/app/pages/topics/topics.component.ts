@@ -13,13 +13,15 @@ import {MatButton} from "@angular/material/button";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
 import {ITopicData} from "../../services/topics/interfaces/topic.data.interface";
 import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
+import {SpinLoaderComponent} from "../../components/common/spin-loader/spin-loader.component";
 
 @Component({
   selector: 'app-topics',
   standalone: true,
   imports: [
     MatButton,
-    TopicsContainerComponent
+    TopicsContainerComponent,
+    SpinLoaderComponent
   ],
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.scss'
@@ -27,13 +29,17 @@ import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container
 export class TopicsComponent implements OnInit, OnDestroy {
   public topicsService = inject(TopicsService);
   public topicsArray: ITopicData[] = [];
-  public hasData: boolean = false;
   private destroy$ : Subject<void> = new Subject<void>();
+  public hasData: boolean = false;
   public hasError: boolean = false;
+  public isLoading: boolean = false;
 
-
-  //I have 2 requests sent in cascade, one that retrieves all topics and one that retrieves all topics' subscription status for the current user
   ngOnInit(): void {
+    this.topicsService.isFetching.subscribe(isFetching => {
+      this.isLoading = isFetching;
+    });
+
+    //I have 2 requests sent in cascade, one that retrieves all topics and one that retrieves all topics' subscription status for the current user
     forkJoin({
       allTopics: this.topicsService.getAll(),
       subscribedTopics: this.topicsService.getSubscribed()

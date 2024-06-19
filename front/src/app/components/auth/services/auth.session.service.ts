@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
-import {AuthStorageService} from "../../../core/auth.storage.service";
+import {AuthStorageService} from "../../../core/services/auth.storage.service";
 import {Router} from "@angular/router";
 
 const defaultAuthenticationState: SessionInformation = {

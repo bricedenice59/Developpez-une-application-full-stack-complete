@@ -11,6 +11,7 @@ import {IUserDetails} from "../../services/User/interfaces/user.interface";
 import {SessionService} from "../../components/auth/services/auth.session.service";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
 import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
+import {SpinLoaderComponent} from "../../components/common/spin-loader/spin-loader.component";
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,8 @@ import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container
     NgForOf,
     NgIf,
     ReactiveFormsModule,
-    TopicsContainerComponent
+    TopicsContainerComponent,
+    SpinLoaderComponent
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -41,6 +43,7 @@ export class UserComponent implements OnInit {
   public onErrorFetchingUserDetails: boolean = false;
   public onErrorFetchingSubscriptions: boolean = false;
   public onError: boolean = false;
+  public isLoading: boolean = false;
   public hasSubscriptions: boolean = false;
 
   constructor(private router: Router,
@@ -64,6 +67,10 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.form.valueChanges.subscribe(_ => {
       this.isUpdateButtonDisabled();
+    });
+
+    this.topicsService.isFetching.subscribe(isFetching => {
+      this.isLoading = isFetching;
     });
 
     this.getUserDetails();

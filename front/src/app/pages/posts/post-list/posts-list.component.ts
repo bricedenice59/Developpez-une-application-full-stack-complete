@@ -8,6 +8,7 @@ import {MatButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
 import {DateTimeFormatter} from "../../../core/utils/date.formatter";
 import {CollectionSort} from "../../../core/utils/collection.sort";
+import {SpinLoaderComponent} from "../../../components/common/spin-loader/spin-loader.component";
 
 @Component({
   selector: 'app-posts-list',
@@ -17,6 +18,7 @@ import {CollectionSort} from "../../../core/utils/collection.sort";
     RouterLink,
     MatButton,
     NgClass,
+    SpinLoaderComponent,
   ],
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss'
@@ -30,12 +32,17 @@ export class PostsListComponent implements OnInit, OnDestroy {
   public hasError: boolean = false;
   public hasData: boolean = false;
   public isAscending: boolean = true;
+  public isLoading: boolean = false;
 
   ngOnDestroy(): void {
     this.postsSubscription$?.unsubscribe();
   }
 
   ngOnInit() : void {
+    this.postsService.isFetching.subscribe(isFetching => {
+      this.isLoading = isFetching;
+    });
+
     this.postsSubscription$ = this.postsService.getFeed().pipe(
       map((values: IPostResponse[]) => {
         return values.map(post => {

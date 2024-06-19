@@ -25,6 +25,10 @@
   </div>
   <div class="horizontal-line"></div>
   <h1 class="subscription-label">Subscriptions</h1>
+  @if(this.isLoading){
+    <p>Fetching topics...</p>
+    <app-spin-loader></app-spin-loader>
+  }
   @if(this.onErrorFetchingSubscriptions){
     <p class="error">An error occurred when trying to retrieve subscriptions...</p>
   } @else if (!this.hasSubscriptions){
