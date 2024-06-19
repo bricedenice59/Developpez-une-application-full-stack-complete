@@ -1,0 +1,20 @@
+<div class="comments-box">
+  <p>
+    <span class="comment-info">Comments</span>
+  </p>
+  @if(this.comments.length == 0) {
+    <span class="comment-non-available">No comments available... write one here-below.</span>
+  }
+  @else{
+    <div class="comment-container">
+      @for (comment of this.comments; track comment.id) {
+        <div class="comment">
+          <label class="username-label">{{comment.username}}</label>
+          <div class="comment-text-container">
+            <p>{{comment.text}}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

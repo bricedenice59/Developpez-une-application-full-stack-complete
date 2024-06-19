@@ -6,6 +6,9 @@ import {ICommentResponse} from "../../../services/posts/interfaces/comment.respo
 import {Router, RouterLink} from '@angular/router';
 import {PostContainerComponent} from "../../../components/posts/post-container/post-container.component";
 import {FormsModule} from "@angular/forms";
+import {CommentsContainerComponent} from "../../../components/posts/comments-container/comments-container.component";
+import {CommentSubmitterComponent} from "../../../components/posts/comment-submitter/comment-submitter.component";
+import {ICommentContentEmitter} from "../../../core/EventEmitters/comments-content.emitter";
 
 @Component({
   selector: 'app-post-detail',
@@ -13,7 +16,9 @@ import {FormsModule} from "@angular/forms";
   imports: [
     PostContainerComponent,
     FormsModule,
-    RouterLink
+    RouterLink,
+    CommentsContainerComponent,
+    CommentSubmitterComponent
   ],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.scss'
@@ -24,10 +29,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public commentsSubscription$: Subscription | undefined;
   public postData : IPostResponse | undefined;
   public hasError: boolean = false;
-
-  public commentText: string = '';
-  public maxLengthCommentText: number = 2000;
-  public charCountCommentText: number = this.maxLengthCommentText;
 
   constructor(private router: Router) {
     this.loadPostData();
@@ -71,34 +72,23 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateCharCount(): void {
-    this.charCountCommentText = this.maxLengthCommentText - this.commentText.length;
-  }
-
-  addComment(event: Event): void{
-    if (!this.commentText.trim()) {
-      event.stopPropagation();
-      return;
-    }
-
-    const saveCommentSubscription$ = this.postsService.saveComment(this.postData!.id, this.commentText).subscribe({
+  public saveComment(commentData: { emitterParams: ICommentContentEmitter }) : void {
+    const saveCommentSubscription$ = this.postsService.saveComment(this.postData!.id, commentData.emitterParams.comment).subscribe({
       next: (_: void) => {
         const newComment: ICommentResponse = {
           id: 0,
           username: "test",
-          text: this.commentText
+          text: commentData.emitterParams.comment
         };
 
         this.commentsArray.push(newComment);
-        saveCommentSubscription$.unsubscribe();
+        commentData.emitterParams.onFnSuccessCallback(true);
 
-        this.commentText = '';
-        this.charCountCommentText = this.maxLengthCommentText;
+        saveCommentSubscription$.unsubscribe();
       },
       error: err => {
         console.log(err);
       }
     });
   }
-
 }

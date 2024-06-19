@@ -1,0 +1,39 @@
+.comment-submit-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.image-button {
+  margin-right: 10px; /* Space between button and comment box */
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.give-comment-box {
+  position: relative;
+  border-radius: 15px;
+  background-color: #FFF;
+  width: 530px;
+  margin-top: 20px; /* Space above the comment box */
+}
+
+.give-comment-box textarea {
+  width: 100%;
+  height: 75px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.char-count {
+  position: absolute;
+  bottom: -30px; /* Position below the textarea */
+  left: 0;
+  width: 100%;
+  text-align: left;
+  padding: 5px 10px;
+}

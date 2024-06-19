@@ -1,0 +1,39 @@
+.comments-box{
+  display: flex;
+  flex-direction: column;
+}
+.comment-info {
+  margin-right: 20px;
+}
+.comment-non-available {
+  text-align: left;
+  margin: 10px;
+}
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-radius: 5px;
+  padding-left: 50px;
+}
+.username-label {
+  margin-right: 10px; /* Space between the username label and the text container */
+  margin-bottom: 20px;
+}
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Space between comments */
+  border-radius: 5px;
+}
+.comment-text-container{
+  background: lightgrey;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  text-align: left;
+  margin-left: 40px;
+  width: 400px;
+}
+.comment-text-container p {
+  margin: 10px;
+}
