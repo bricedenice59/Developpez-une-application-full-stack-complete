@@ -81,7 +81,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
           text: commentData.emitterParams.comment
         };
 
-        this.commentsArray.push(newComment);
+        this.commentsArray.unshift(newComment);
         commentData.emitterParams.onFnSuccessCallback(true);
 
         saveCommentSubscription$.unsubscribe();
