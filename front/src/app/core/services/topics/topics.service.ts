@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ITopicResponse} from "./interfaces/topic.response.interface";
-import {FetchService} from "../../core/services/fetch.service";
+import {ITopic} from "../../models/topics/topic.interface";
+import {FetchService} from "../fetch.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ import {FetchService} from "../../core/services/fetch.service";
 export class TopicsService extends FetchService {
   private pathService = '/api/topics';
 
-  public getAll(): Observable<ITopicResponse[]> {
-    return this.fetch<ITopicResponse[]>(this.pathService);
+  public getAll(): Observable<ITopic[]> {
+    return this.fetch<ITopic[]>(this.pathService);
   }
 
-  public getSubscribed(): Observable<ITopicResponse[]> {
-    return this.fetch<ITopicResponse[]>(`${this.pathService}/subscribed`);
+  public getSubscribed(): Observable<ITopic[]> {
+    return this.fetch<ITopic[]>(`${this.pathService}/subscribed`);
   }
 
   public subscribeToTopic(topicId: number): Observable<void> {

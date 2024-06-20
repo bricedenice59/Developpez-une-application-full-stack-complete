@@ -4,10 +4,10 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {MatInput} from "@angular/material/input";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
-import {LoginRequest} from "../interfaces/loginRequest.interface";
-import {AuthService} from "../services/auth.service";
-import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
-import {SessionService} from "../services/auth.session.service";
+import {LoginRequest} from "../../../core/payloads/auth/loginRequest.interface";
+import {AuthService} from "../../../core/services/auth/auth.service";
+import {SessionInformation} from "../../../core/models/auth/sessionInformation.interface";
+import {SessionService} from "../../../core/services/auth/auth.session.service";
 import {HeaderComponent} from "../header/header.component";
 
 @Component({

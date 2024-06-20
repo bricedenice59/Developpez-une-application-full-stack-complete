@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {MatToolbar} from "@angular/material/toolbar";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+import {ToolbarComponent} from "./core/components/toolbar/toolbar.component";
 import {filter} from "rxjs";
 
 @Component({

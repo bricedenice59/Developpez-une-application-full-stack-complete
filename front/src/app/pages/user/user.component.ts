@@ -1,17 +1,17 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {TopicsService} from "../../services/topics/topics.service";
-import {ITopicResponse} from "../../services/topics/interfaces/topic.response.interface";
+import {TopicsService} from "../../core/services/topics/topics.service";
+import {ITopic} from "../../core/models/topics/topic.interface";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
-import {UserService} from "../../services/User/user.service";
-import {IUserDetails} from "../../services/User/interfaces/user.interface";
-import {SessionService} from "../../components/auth/services/auth.session.service";
+import {UserService} from "../../core/services/user/user.service";
+import {IUserDetails} from "../../core/models/user/user.interface";
+import {SessionService} from "../../core/services/auth/auth.session.service";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
 import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
-import {SpinLoaderComponent} from "../../components/common/spin-loader/spin-loader.component";
+import {SpinLoaderComponent} from "../../core/components/spin-loader/spin-loader.component";
 
 @Component({
   selector: 'app-user',
@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
 
   public nameValidationMessage : string = "";
   public emailValidationMessage : string = "";
-  public userSubscribedTopicsArray: ITopicResponse[] = [];
+  public userSubscribedTopicsArray: ITopic[] = [];
   public currentUserDetails: IUserDetails | undefined;
   public onErrorFetchingUserDetails: boolean = false;
   public onErrorFetchingSubscriptions: boolean = false;
@@ -79,7 +79,7 @@ export class UserComponent implements OnInit {
 
   public getUserAllSubscription() : void {
       const userTopicsGetAllSubscription$ = this.topicsService.getSubscribed().subscribe({
-      next: (values: ITopicResponse[]) => {
+      next: (values: ITopic[]) => {
         this.hasSubscriptions = values.length > 0;
         this.userSubscribedTopicsArray = values;
         userTopicsGetAllSubscription$.unsubscribe();

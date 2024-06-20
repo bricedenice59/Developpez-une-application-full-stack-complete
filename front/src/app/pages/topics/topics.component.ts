@@ -7,13 +7,13 @@ import {
   Subject,
   takeUntil
 } from "rxjs";
-import {TopicsService} from "../../services/topics/topics.service";
+import {TopicsService} from "../../core/services/topics/topics.service";
 import {CollectionSort} from "../../core/utils/collection.sort";
 import {MatButton} from "@angular/material/button";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
-import {ITopicData} from "../../services/topics/interfaces/topic.data.interface";
+import {ITopicData} from "../../core/models/topics/topic.data.interface";
 import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
-import {SpinLoaderComponent} from "../../components/common/spin-loader/spin-loader.component";
+import {SpinLoaderComponent} from "../../core/components/spin-loader/spin-loader.component";
 
 @Component({
   selector: 'app-topics',

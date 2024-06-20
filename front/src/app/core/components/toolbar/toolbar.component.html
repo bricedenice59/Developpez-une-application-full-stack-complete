@@ -1,18 +1,18 @@
 <div class="toolbar" [@slideInOut]="isMobile ? (isToggled ? 'in' : 'out') : 'in'">
-  <img class="logo" src="/assets/logo_p6.png" alt="Banner Image">
+  <img class="logo" src="assets/logo_p6.png" alt="Banner Image">
   <div class="menu-container">
     <ul class="menu">
       <li><a [routerLink]="['/posts']" (click)="toggleToolbar()" routerLinkActive="active" ariaCurrentWhenActive="page">Posts</a></li>
       <li><a [routerLink]="['/topics']" (click)="toggleToolbar()" routerLinkActive="active" ariaCurrentWhenActive="page">Topics</a></li>
     </ul>
     <a [routerLink]="['/user']" (click)="toggleToolbar()">
-      <img class="profile-icon" src="/assets/user-profile.jpg" alt="Profile">
+      <img class="profile-icon" src="assets/user-profile.jpg" alt="Profile">
     </a>
   </div>
 </div>
 @if (isMobile){
   <div>
-    <img class="logo-top-left" src="/assets/logo_p6.png" alt="Banner Image">
+    <img class="logo-top-left" src="assets/logo_p6.png" alt="Banner Image">
     <div class="toggle-icon" (click)="toggleToolbar()">
       @if(!isToggled){
         <span>☰</span>

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ICommentResponse} from "../../../services/posts/interfaces/comment.response.interface";
+import {IComment} from "../../../core/models/posts/comment.interface";
 
 @Component({
   selector: 'post-comments-container',
@@ -9,5 +9,5 @@ import {ICommentResponse} from "../../../services/posts/interfaces/comment.respo
   styleUrl: './comments-container.component.scss'
 })
 export class CommentsContainerComponent {
-  @Input() comments: ICommentResponse[] = new Array<ICommentResponse>();
+  @Input() comments: IComment[] = new Array<IComment>();
 }

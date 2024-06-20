@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {SessionInformation} from "../../../interfaces/sessionInformation.interface";
-import {AuthStorageService} from "../../../core/services/auth.storage.service";
+import {SessionInformation} from "../../models/auth/sessionInformation.interface";
+import {AuthStorageService} from "../auth.storage.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 

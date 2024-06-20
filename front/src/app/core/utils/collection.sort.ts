@@ -1,4 +1,4 @@
-import {ICreatedAt} from "../interfaces/response.date";
+import {ICreatedAt} from "../models/created-at";
 
 export class CollectionSort{
   public static sortByCreationDateAscending<T extends ICreatedAt>(posts: T[]): T[] {

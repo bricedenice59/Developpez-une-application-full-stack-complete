@@ -1,6 +1,6 @@
-import {ICreatedAt} from "../../../core/interfaces/response.date";
+import {ICreatedAt} from "../created-at";
 
-export interface IPostResponse extends ICreatedAt {
+export interface IPost extends ICreatedAt {
     id : number,
     topicId: number,
     topicName: string,

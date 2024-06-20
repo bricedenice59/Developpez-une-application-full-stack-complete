@@ -1,4 +1,4 @@
-import {ICreatedAt} from "../../../core/interfaces/response.date";
+import {ICreatedAt} from "../created-at";
 
 export interface ITopicData extends ICreatedAt {
     id : number

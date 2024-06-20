@@ -1,8 +1,8 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {PostsService} from "../../../services/posts/posts.service";
-import {IPostResponse} from "../../../services/posts/interfaces/post.response.interface";
+import {PostsService} from "../../../core/services/posts/posts.service";
+import {IPost} from "../../../core/models/posts/post.interface";
 import {Subscription} from "rxjs";
-import {ICommentResponse} from "../../../services/posts/interfaces/comment.response.interface";
+import {IComment} from "../../../core/models/posts/comment.interface";
 import {Router, RouterLink} from '@angular/router';
 import {PostContainerComponent} from "../../../components/posts/post-container/post-container.component";
 import {FormsModule} from "@angular/forms";
@@ -28,9 +28,9 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   private readonly postsService = inject(PostsService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
-  public commentsArray: ICommentResponse[] = [];
+  public commentsArray: IComment[] = [];
   public commentsSubscription$: Subscription | undefined;
-  public postData : IPostResponse | undefined;
+  public postData : IPost | undefined;
   public hasError: boolean = false;
 
   constructor() {
@@ -39,10 +39,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
   private loadPostData(): void {
     const navigation = this.router.getCurrentNavigation();
-    let navigationData: { data: IPostResponse } | undefined;
+    let navigationData: { data: IPost } | undefined;
 
     if (navigation && navigation.extras && navigation.extras.state) {
-      navigationData = navigation.extras.state as { data: IPostResponse };
+      navigationData = navigation.extras.state as { data: IPost };
       this.postData = navigationData.data;
       sessionStorage.setItem('postData', JSON.stringify(this.postData));
     } else {
@@ -69,7 +69,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     }
 
     this.commentsSubscription$ = this.postsService.getAllComments(this.postData!.id).subscribe(
-      (values: ICommentResponse[]) => {
+      (values: IComment[]) => {
         this.commentsArray = values;
       }
     );
@@ -78,7 +78,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public saveComment(commentData: { emitterParams: ICommentContentEmitter }) : void {
     const saveCommentSubscription$ = this.postsService.saveComment(this.postData!.id, commentData.emitterParams.comment).subscribe({
       next: (_: void) => {
-        const newComment: ICommentResponse = {
+        const newComment: IComment = {
           id: 0, //we are not using it later so id can be any number
           username: "me",
           text: commentData.emitterParams.comment

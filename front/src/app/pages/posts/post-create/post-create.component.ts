@@ -4,11 +4,11 @@ import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
-import {TopicsService} from "../../../services/topics/topics.service";
-import {ITopicResponse} from "../../../services/topics/interfaces/topic.response.interface";
+import {TopicsService} from "../../../core/services/topics/topics.service";
+import {ITopic} from "../../../core/models/topics/topic.interface";
 import {Subscription} from "rxjs";
-import {PostsService} from "../../../services/posts/posts.service";
-import {IPostRequest} from "../../../services/posts/interfaces/post.request.interface";
+import {PostsService} from "../../../core/services/posts/posts.service";
+import {IPostRequest} from "../../../core/payloads/posts/post.request.interface";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -26,7 +26,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrl: './post-create.component.scss'
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
-  public topicsArray: ITopicResponse[] = [];
+  public topicsArray: ITopic[] = [];
   public topicsSubscription$: Subscription | undefined;
   public onError = false;
   public isSubmittingComment = false;
@@ -68,7 +68,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.topicsSubscription$ = this.topicService.getAll().subscribe(
-      (values: ITopicResponse[]) => {
+      (values: ITopic[]) => {
         this.topicsArray = values;
       }
     );

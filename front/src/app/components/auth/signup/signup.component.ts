@@ -4,8 +4,8 @@ import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RegisterRequest} from "../interfaces/registerRequest.interface";
-import {AuthService} from "../services/auth.service";
+import {RegisterRequest} from "../../../core/payloads/auth/registerRequest.interface";
+import {AuthService} from "../../../core/services/auth/auth.service";
 import {HeaderComponent} from "../header/header.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
