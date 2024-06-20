@@ -38,10 +38,15 @@ export class SessionService implements OnDestroy {
     this.authenticationSubject.next(userSession);
   }
 
-  public logOut(): void {
+  public logOut(reason: string = ''): void {
     this.authenticationSubject.next(defaultAuthenticationState);
     this.authStorageService.delete();
-    this.snackBar.open("Logout successful, you will be redirected to the home page.", "Close", { duration: 2000 });
+    if(reason === '') {
+      this.snackBar.open("Logout successful, you will be redirected to the home page.", "Close", { duration: 2000 });
+    }
+    else{
+      this.snackBar.open(reason, "Close", { duration: 2000 });
+    }
     setTimeout(() => {
       this.router.navigate(['/home']);
     }, 2_000);
