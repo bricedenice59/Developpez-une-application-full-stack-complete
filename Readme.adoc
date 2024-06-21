@@ -1,0 +1,71 @@
+= mdd-api
+:toc:
+
+== Prerequisites
+- **Java Development Kit (JDK)**
+
+- **Apache Maven:** Install [Maven](https://maven.apache.org/) for building and managing the project's dependencies.
+
+== API
+
+* *Swagger documentation* is available at following endpoint (change host and port accordingly)
+http://localhost:8081/api/swagger-ui/index.html
+
+
+* *Postman* json collection file for endpoints testing is available: */back/resources/mddApi.postman_collection.json*
+
+=== Dockerize Spring boot application
+
+The configuration file *docker-compose.yml* can be found at the root of the mdd-api project. It consists in 3 different services:
+
+* One MySQL instance (an empty database named *db_mdd* that will be created when mysql image will be mounted.)
+* One Adminer instance
+* The spring boot API project
+
+I am using *docker secrets* to manage any sensitive data such as database password which the container needs at runtime but you don't want to store in the image or in source control.
+https://docs.docker.com/engine/swarm/secrets/
+
+* Run docker in swarm mode by using
++
+[source]
+$ docker swarm init
+--
+
+* Create a random password for the mySQL database root user  (mysql-root-pass is the secret name defined in docker-compose.yml)
++
+[source]
+$ openssl rand -base64 12 | docker secret create mysql-root-pass -
+--
+
+* Create a random secret for jwt token creation (jwt-secret-pass is the secret name defined in docker-compose.yml)
++
+[source]
+$ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" | docker secret create jwt-secret-pass -
+--
+
+Deployment time!
+
+* Make a Jar package without tests using maven package (mvn package)
++
+[source]
+
+$ mvn package -Dmaven.test.skip
+--
+
+* Build the spring boot project Docker image
++
+[source]
+
+$  docker build --no-cache -t springboot-mdd-api:latest .
+--
+
+* Deploy all services with Docker stack
++
+[source]
+
+$ docker stack deploy -c docker-compose.yml project6
+--
+
+== Angular project
+
+Host and port may have to be amended accordingly with your API configuration in frontend source code.
