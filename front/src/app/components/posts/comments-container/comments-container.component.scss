@@ -19,6 +19,9 @@
 .username-label {
   margin-right: 10px; /* Space between the username label and the text container */
   margin-bottom: 20px;
+  width: 75px;
+  white-space: normal; /* Allow text to wrap */
+  overflow-wrap: break-word; /* Break words if necessary */
 }
 .comment {
   display: flex;
