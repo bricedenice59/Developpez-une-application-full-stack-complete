@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TopicsService} from "../../core/services/topics/topics.service";
 import {ITopic} from "../../core/models/topics/topic.interface";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
@@ -12,6 +11,7 @@ import {SessionService} from "../../core/services/auth/auth.session.service";
 import {TopicsContainerComponent} from "../../components/topics/topics-container/topics-container.component";
 import {ITopicsContainerEmitter} from "../../core/EventEmitters/topics-container.emitter";
 import {SpinLoaderComponent} from "../../core/components/spin-loader/spin-loader.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-user',
@@ -31,9 +31,9 @@ import {SpinLoaderComponent} from "../../core/components/spin-loader/spin-loader
 export class UserComponent implements OnInit {
   [key: string]: any; // Index signature
 
-  private readonly topicsService = inject(TopicsService);
-  private readonly userService = inject(UserService);
-  private readonly sessionService = inject(SessionService);
+  private readonly topicsService: TopicsService = inject(TopicsService);
+  private readonly userService: UserService = inject(UserService);
+  private readonly sessionService: SessionService = inject(SessionService);
   public form: FormGroup<{ name: FormControl<string | null>; email: FormControl<string | null>;}>
 
   public nameValidationMessage : string = "";
@@ -46,8 +46,7 @@ export class UserComponent implements OnInit {
   public isLoading: boolean = false;
   public hasSubscriptions: boolean = false;
 
-  constructor(private router: Router,
-              private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: [
         '',
@@ -156,7 +155,7 @@ export class UserComponent implements OnInit {
       email: this.form.controls['email'].value!,
     };
 
-    const userUpdateDetailsSubscription$ = this.userService.updateDetails(newUserDetails).subscribe({
+    const userUpdateDetailsSubscription$: Subscription = this.userService.updateDetails(newUserDetails).subscribe({
       next: (_: void) => {
         userUpdateDetailsSubscription$.unsubscribe();
         this.logout();
@@ -173,9 +172,9 @@ export class UserComponent implements OnInit {
 
   public unsubscribeFromTopic(topicData: { emitterParams: ITopicsContainerEmitter }) : void {
      const userTopicsUnSubscribeSubscription$= this.topicsService.unSubscribeToTopic(topicData.emitterParams.id).subscribe({
-      next: (_: void) => {
+      next: (_: void): void => {
         userTopicsUnSubscribeSubscription$.unsubscribe();
-        const index = this.userSubscribedTopicsArray.findIndex(subscription => subscription.id === topicData.emitterParams.id);
+        const index: number = this.userSubscribedTopicsArray.findIndex(subscription => subscription.id === topicData.emitterParams.id);
         if (index !== -1) {
           this.userSubscribedTopicsArray.splice(index, 1);
           this.hasSubscriptions = this.userSubscribedTopicsArray.length > 0;

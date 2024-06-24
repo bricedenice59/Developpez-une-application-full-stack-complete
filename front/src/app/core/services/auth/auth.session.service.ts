@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {SessionInformation} from "../../models/auth/sessionInformation.interface";
 import {AuthStorageService} from "../auth.storage.service";
 import {Router} from "@angular/router";
@@ -15,8 +15,8 @@ const defaultAuthenticationState: SessionInformation = {
   providedIn: 'root'
 })
 export class SessionService implements OnDestroy {
-  private authenticationSubject = new BehaviorSubject<SessionInformation>(defaultAuthenticationState);
-  private auth$ = this.authenticationSubject.asObservable();
+  private authenticationSubject : BehaviorSubject<SessionInformation> = new BehaviorSubject<SessionInformation>(defaultAuthenticationState);
+  private auth$ : Observable<SessionInformation> = this.authenticationSubject.asObservable();
 
   constructor(private authStorageService: AuthStorageService,
               private router: Router,
@@ -47,7 +47,7 @@ export class SessionService implements OnDestroy {
     else{
       this.snackBar.open(reason, "Close", { duration: 2000 });
     }
-    setTimeout(() => {
+    setTimeout(() : void => {
       this.router.navigate(['/home']);
     }, 2_000);
   }

@@ -7,7 +7,7 @@ import {Injectable} from "@angular/core";
   providedIn: 'root',
 })
 export abstract class FetchService {
-  protected isFetchingData$ = new BehaviorSubject<boolean>(false);
+  protected isFetchingData$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(protected httpClient: HttpClient) {}
 

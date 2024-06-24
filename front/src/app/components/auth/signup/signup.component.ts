@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
@@ -8,6 +8,7 @@ import {RegisterRequest} from "../../../core/payloads/auth/registerRequest.inter
 import {AuthService} from "../../../core/services/auth/auth.service";
 import {HeaderComponent} from "../header/header.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +23,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnDestroy {
+  private signupSubscription$ : Subscription | undefined
   public onError = false;
   public isSigningUp = false;
   public form: FormGroup<{ name: FormControl<string | null>; email: FormControl<string | null>; password: FormControl<string | null>; }>
@@ -56,6 +58,10 @@ export class SignupComponent {
     });
   }
 
+  ngOnDestroy(): void {
+    this.signupSubscription$?.unsubscribe();
+  }
+
   public submit(): void {
     if(this.isSigningUp) {
       return;
@@ -64,10 +70,10 @@ export class SignupComponent {
     this.isSigningUp = true;
 
     const registerRequest = this.form.value as RegisterRequest;
-    this.authService.register(registerRequest).subscribe({
-      next: (_: void) => {
+    this.signupSubscription$ = this.authService.register(registerRequest).subscribe({
+      next: (_: void): void => {
         this.snackBar.open("Account successfully created, you will be redirected to the login page.", "Close", { duration: 2000 });
-        setTimeout(() => {
+        setTimeout((): void => {
           this.router.navigate(['/login']).then(() => {
             this.isSigningUp = false;
           });

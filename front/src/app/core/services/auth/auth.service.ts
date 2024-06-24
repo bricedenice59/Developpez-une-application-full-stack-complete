@@ -10,7 +10,7 @@ import {SessionInformation} from "../../models/auth/sessionInformation.interface
 })
 export class AuthService {
 
-  private pathService = '/api/auth';
+  private pathService: string = '/api/auth';
 
   constructor(private httpClient: HttpClient) { }
 

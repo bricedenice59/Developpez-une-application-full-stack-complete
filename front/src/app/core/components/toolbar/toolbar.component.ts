@@ -29,11 +29,11 @@ export class ToolbarComponent {
   isMobile = window.innerWidth < 768;
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
+  onResize(): void {
     this.isMobile = window.innerWidth < 768;
   }
 
-  toggleToolbar() {
+  toggleToolbar(): void {
     this.isToggled = !this.isToggled;
   }
 }

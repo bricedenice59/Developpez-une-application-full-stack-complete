@@ -63,7 +63,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem('postData');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.hasError) {
       return;
     }

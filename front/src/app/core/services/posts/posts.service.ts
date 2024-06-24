@@ -11,7 +11,7 @@ import {FetchService} from "../fetch.service";
 })
 export class PostsService extends FetchService{
 
-  private pathService = '/api/posts';
+  private pathService: string = '/api/posts';
 
   public getFeed(): Observable<IPost[]> {
     return this.fetch<IPost[]>(`${this.pathService}/feed`);

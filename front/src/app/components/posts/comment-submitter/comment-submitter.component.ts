@@ -23,7 +23,7 @@ export class CommentSubmitterComponent {
   }
 
   // Function to handle the success status
-  handleSuccess(success: boolean) {
+  handleSuccess(success: boolean): void {
     if(success){
       this.commentText = '';
       this.charCountCommentText = this.maxLengthCommentText;

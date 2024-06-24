@@ -25,8 +25,8 @@ import {SpinLoaderComponent} from "../../../core/components/spin-loader/spin-loa
 })
 export class PostsListComponent implements OnInit, OnDestroy {
 
-  private readonly postsService = inject(PostsService);
-  private readonly router = inject(Router);
+  private readonly postsService: PostsService = inject(PostsService);
+  private readonly router: Router = inject(Router);
   public postsArray: IPost[] = [];
   public postsSubscription$: Subscription | undefined;
   public hasError: boolean = false;

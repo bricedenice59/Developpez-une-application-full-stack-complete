@@ -21,12 +21,12 @@ export class TopicsContainerComponent {
 
 
   // emit to the parent component the current topic id and its callback
-  public fn() {
+  public fn(): void {
     this.topicContainerEvent.emit({emitterParams: {id: this.id, onFnSuccessCallback: this.handleSuccess.bind(this)} });
   }
 
   // Function to handle the success status
-  handleSuccess(success: boolean) {
+  handleSuccess(success: boolean): void {
     this.isAlreadySubscribed = success;
   }
 }

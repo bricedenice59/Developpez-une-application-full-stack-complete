@@ -8,7 +8,7 @@ import {IUserDetails} from "../../models/user/user.interface";
 })
 export class UserService {
 
-  private pathService = '/api/user';
+  private pathService: string = '/api/user';
 
   constructor(private httpClient: HttpClient) { }
 

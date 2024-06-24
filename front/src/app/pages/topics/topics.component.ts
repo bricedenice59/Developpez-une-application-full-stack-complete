@@ -27,7 +27,7 @@ import {SpinLoaderComponent} from "../../core/components/spin-loader/spin-loader
   styleUrl: './topics.component.scss'
 })
 export class TopicsComponent implements OnInit, OnDestroy {
-  public topicsService = inject(TopicsService);
+  public topicsService: TopicsService = inject(TopicsService);
   public topicsArray: ITopicData[] = [];
   private destroy$ : Subject<void> = new Subject<void>();
   public hasData: boolean = false;
@@ -79,39 +79,4 @@ export class TopicsComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  // ngOnInit() : void {
-  //   this.topicsSubscription$ = this.topicsService.getAll().pipe(
-  //     switchMap((allTopics: ITopicResponse[]) => {
-  //       this.hasData = allTopics.length != 0;
-  //
-  //       if(this.hasData){
-  //         allTopics.forEach((x : ITopicResponse)=> {
-  //           const topic : ITopicData = {
-  //             id: x.id,
-  //             title: x.title,
-  //             description: x.description,
-  //             createdAt: x.createdAt,
-  //             isSubscribed: false
-  //           }
-  //           this.topicsArray.push(topic);
-  //         });
-  //
-  //         this.topicsArray = CollectionSort.sortByCreationDateDescending(this.topicsArray);
-  //       }
-  //       return this.hasData ? this.topicsService.getSubscribed() : of([]);
-  //     })
-  //   ).subscribe((userTopics: ITopicResponse[]) => {
-  //     if (userTopics.length) {
-  //       userTopics.forEach((x : ITopicResponse)=> {
-  //         const topic = this.topicsArray.find((z : ITopicData)=> {
-  //           return z.id == x.id;
-  //         });
-  //         if (topic) {
-  //           topic.isSubscribed = true;
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
 }

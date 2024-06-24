@@ -7,7 +7,7 @@ import {FetchService} from "../fetch.service";
   providedIn: 'root'
 })
 export class TopicsService extends FetchService {
-  private pathService = '/api/topics';
+  private pathService: string = '/api/topics';
 
   public getAll(): Observable<ITopic[]> {
     return this.fetch<ITopic[]>(this.pathService);
