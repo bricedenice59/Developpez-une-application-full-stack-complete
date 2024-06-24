@@ -57,7 +57,7 @@ export class UserComponent implements OnInit {
       email: [
         '',
         [
-          Validators.email
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}')
         ]
       ]
     });
@@ -150,15 +150,15 @@ export class UserComponent implements OnInit {
   }
 
   public updateUserProfile(): void{
-    const newUserDetails : IUserDetails = {
-      name: this.form.controls['name'].value!,
-      email: this.form.controls['email'].value!,
+    const updatedUserDetails: IUserDetails = {
+      name: this.form.controls['name'].value!.trim() || this.currentUserDetails!.name,
+      email: this.form.controls['email'].value!.trim() || this.currentUserDetails!.email,
     };
 
-    const userUpdateDetailsSubscription$: Subscription = this.userService.updateDetails(newUserDetails).subscribe({
+    const userUpdateDetailsSubscription$: Subscription = this.userService.updateDetails(updatedUserDetails).subscribe({
       next: (_: void) => {
         userUpdateDetailsSubscription$.unsubscribe();
-        this.logout();
+        this.logout('You have updated your details, please log-in again.');
       },
       error: err => {
         console.log(err);
@@ -166,8 +166,8 @@ export class UserComponent implements OnInit {
     });
   }
 
-  public logout(): void {
-    this.sessionService.logOut();
+  public logout(reason: string = ''): void {
+    this.sessionService.logOut(reason);
   }
 
   public unsubscribeFromTopic(topicData: { emitterParams: ITopicsContainerEmitter }) : void {
